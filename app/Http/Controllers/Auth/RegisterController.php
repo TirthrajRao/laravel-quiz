@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/studentDashboard';
 
     /**
      * Create a new controller instance.
@@ -61,12 +61,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
+    protected function create(array $data)    
+    {        
+               
+      if($data['imA'] == 'teacher'){
+            $check_user = '1';
+            $enrollNo =  Null;
+            $year = Null;
+            $batch = Null;
+        }else{
+            $check_user = '0';
+            $enrollNo = $data['eno']; 
+            $year = $data['year'];
+            $batch = $data['batch'];
+                      
+        }
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'enroll_no' => $enrollNo,
+            'is_admin' => $check_user,
+            'year' => $year, 
+            'batch' => $batch,      
             'password' => Hash::make($data['password']),
         ]);
+        
     }
 }

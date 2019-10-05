@@ -9,9 +9,9 @@
 	@endif
 	<div class="container">
 		<div class="row" style="margin: 30px 0px">
-			<div class="col-md-8 offset-md-2">
+			<div class="col-md-7 offset-md-5">
 				@if ($message = Session::get('failure'))
-				<div class="alert alert-danger" id="message_id">
+				<div class="alert alert-danger" style=" color: #e3342f;    background-color: #f9d6d5; border-color: #f7c6c5; position: absolute; top: 75px; z-index: 1; font-size: 19px; margin-left: 18px;" id="message_id_fail">
 					<p>{{ $message }}</p>
 				</div>
 				@endif
@@ -20,9 +20,9 @@
 	</div>
 
 	<div class="row" style="margin-top: 30px;">
-		<div class="col-md-6 offset-md-3">
+		<div class="col-md-6 offset-md-6">
 			@if ($message = Session::get('success'))
-			<div class="alert alert-success" id="message_id">
+			<div class="alert alert-success" id="message_id" style="position: absolute; top: 60px; z-index: 1; margin-left: 35px;">
 				<p>{{ $message }}</p>
 			</div>
 			@endif
@@ -33,31 +33,40 @@
 	<div class="container-fluid">
 		<div id="responsiveTabsDemo" class="row">
 			<ul class="register_tab_title col-md-3 content_left">
-				<li><a href="#tab-info"><h3>{{ $test->title }} Quiz</h3></a></li>
+				<?php
+        $unit = explode(",",$test->title);
+        $quizTit =  'Unit - '.$unit[0].', Quiz - '.$unit[1];
+    ?>
+				<li><a href="JavaScript:Void(0)"><h3 class="headergreen">{{ $quizTit }}</h3></a></li>
 				@if (count($questions) > 0)
 				@foreach($questions as $index=>$question)
 				<li><a href="#tab-{{$index+1}}">{{$index+1}}. {{ $question->question }}</a> </li>
-				<a href="JavaScript:Void(0)" class="editquestion" id="{{$question->questionid}}" data-toggle="modal" data-target="#editQueModal">Edit</a><a href="{{ route('delQuestion',[$question->questionid,$test->quizid])}}">Delete</a>
-				
-				@endforeach
+				<a href="JavaScript:Void(0)" class="editquestion" id="{{$question->questionid}}" data-toggle="modal" data-target="#editQueModal">Edit</a><a href="{{ route('delQuestion',[$question->questionid,$test->quizid])}}">Delete</a>	
+				@endforeach				
 				@endif
+
 			</ul>
 			<div class="col-md-9 content_right">
 				<div class="register_tab_content">
 					<div id="tab-info" class="quesion_display">
 						<div class="inner-container">
 							<div class="row">
-								<div class="col-md-6 offset-md-3 offset-sm-4">
+								<div class="col-md-6 offset-md-3">
 									<div class="inner-container all_quiz_list">
 										<div class="card cardHome">
 											<div class="content active">
-												<h4>{{ $test->title}} Quiz</h4>
+	<?php
+        $unit = explode(",",$test->title);
+        $quizTit =  'Unit - '.$unit[0].', Quiz - '.$unit[1];
+    ?>
+												<h4>{{ $quizTit}}</h4>
 												<p>Min. No. of questions: {{ $test->no_of_questions }}</p>
 												<p>Total Questions: {{ $questionsCount}}</p>
 												@if(!$test->permitted)
-												{{ Form::open(array('url' => 'activateQuiz/'.$test->quizid, 'role' => 'form', 'class' => 'form-horizontal')) }}
-												<button type="submit" id="activate-test-{{ $test->quizid }}" class="btn btn-sm btn-success">Activate Test</button>
-												{{ Form::close() }}
+												
+												<!-- <button type="submit" id="activate-test-{{ $test->quizid }}" class="btn btn-sm btn-success">Activate Test</button> -->
+												<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#activateModel">Activate Test
+												</button>
 												@else
 												{{ Form::open(array('url' => 'deactivateQuiz/'.$test->quizid, 'role' => 'form', 'class' => 'form-horizontal')) }}
 												<button type="submit" id="deactivate-test-{{ $test->quizid }}" class="btn btn-sm btn-danger">Deactivate Test</button>
@@ -121,6 +130,47 @@
 			</button>
 		</div>
 	</div>
+	<!-- activate quiz model-->
+	<div class="modal" id="activateModel">
+		<div class="modal-dialog">
+			{{ Form::open(array('url' => 'activateQuiz/'.$test->quizid, 'role' => 'form', 'class' => 'form-horizontal')) }}
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Activate Quiz</h4>
+					<button type="button" class="close" data-dismiss="modal" style="color: inherit!important">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="row" style="margin: 10px 0px">
+						<div class="col-md-8">
+							<div class="filter-content" style="margin: 30px 0px">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-6 labelContent">
+											<label for="question-type" class="control-label">Year</label>
+										</div>
+										<div class="col-md-6" >
+											<!-- Assign a role as well. Default: Faculty -->
+											<input type="radio" value="1" name="year" class="pull-left form-group" required="" />
+											<label for="mcq">&nbsp;&nbsp;1st year</label>
+											<br>
+											<input type="radio" value="2" name="year" class="pull-left form-group" required="" />
+											<label for="tf">&nbsp;&nbsp;2nd year</label>
+											<br>
+										</div>	
+									</div>
+								</div>
+							</div>				
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn_cancel" data-dismiss="modal" style="width: 88px;">Close</button>
+					<button type="submit" class="btn btn_quiz" id="activate-test-{{ $test->quizid }}">Activate</button>
+				</div>
+			</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
 	<!-- modal -->
 	<div class="modal" id="AddQueModal">
 		<div class="modal-dialog">
@@ -132,7 +182,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="row" style="margin: 10px 0px">
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<div class="filter-content" style="margin: 30px 0px">
 								<div class="form-group">
 									<div class="row">
@@ -158,7 +208,7 @@
 										<div class="col-md-6">
 											<label for="question-text" class=" control-label">Question</label>
 										</div>
-										<div class="col-md-5">
+										<div class="col-md-6">
 											<textarea rows="3" cols="20" style="resize: none;" id="question-text" name="question-text" class="" form="add-question" placeholder="Enter Question..."></textarea>
 				@error('question-text')
                 <span class="invalid-feedback" role="alert">
@@ -174,8 +224,17 @@
 											<div class="col-md-6">
 												<label>Option 1: </label>
 											</div>
-											<div class="col-md-5">
+											<div class="col-md-6">
 												<input name="option1" type="text" class=""  id="option1" placeholder="Option 1" />
+												@error('option1')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
+								                
+								                <span class="invalid-feedback" role="alert">
+					                    		<strong class="error_option"></strong>
+					                </span>
 											</div>
 										</div>
 									</div>
@@ -185,8 +244,13 @@
 												<div class="col-md-6">
 													<label>Option 2: </label>
 												</div>
-												<div class="col-md-5">
+												<div class="col-md-6">
 													<input name="option2" type="text" class=""  id="option2" placeholder="Option 2" />
+													@error('option2')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
 												</div>
 											</div>
 										</div>
@@ -197,8 +261,13 @@
 												<div class="col-md-6">
 													<label>Option 3: </label>
 												</div>
-												<div class="col-md-5">
+												<div class="col-md-6">
 													<input name="option3" type="text" class=""  id="option3" placeholder="Option 3" />
+													@error('option3')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
 												</div>
 											</div>
 										</div>
@@ -209,8 +278,13 @@
 												<div class="col-md-6">
 													<label>Option 4: </label>
 												</div>
-												<div class="col-md-5">
+												<div class="col-md-6">
 													<input name="option4" type="text" class=""  id="option4" placeholder="Option 4" />
+													@error('option4')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
 												</div>
 											</div>
 										</div>
@@ -235,32 +309,40 @@
 									<div class="col-md-6">
 										<label for="answer" class="control-label">Answer</label>
 									</div>
-									<div class="col-md-5">
+									<div class="col-md-6">
 										<input id="answer" type="text" class="" name="answer" placeholder="Answer">
+										@error('answer')
+						                <span class="invalid-feedback" role="alert">
+						                    <strong>{{ $message }}</strong>
+						                </span>
+						                @enderror
+									<span class="invalid-feedback" role="alert">
+					                    <strong class="error_answer"></strong>
+					                </span>
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<div class="row">
 									<div class="col-md-6">
 										<label for="time" class="control-label">Time:</label>
 									</div>
 									<div class="col-md-5">
 										<input id="time" type="time" class="" name="question-duration" placeholder="in MM:SS format" onkeypress="return isNumberKey(event)" required/>
-			  @error('question-duration')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-              @enderror
+										 	 @error('question-duration')
+								            <span class="invalid-feedback" role="alert">
+								                <strong>{{ $message }}</strong>
+								            </span>
+								          @enderror
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn_cancel" data-dismiss="modal" style="width: 88px;">Close</button>
-					<button type="submit" class="btn btn_quiz">Save</button>
+					<button type="submit" class="btn btn_quiz mcq_validation">Save</button>
 				</div>
 			</div>
 			{!! Form::close() !!}
@@ -278,7 +360,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="row" style="margin: 10px 0px">
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<div class="filter-content" style="margin: 30px 0px">
 								<div class="form-group">
 									<div class="row">
@@ -304,7 +386,7 @@
 										<div class="col-md-6">
 											<label for="question-text-edit" class=" control-label">Question</label>
 										</div>
-										<div class="col-md-5">
+										<div class="col-md-6">
 											<!-- <textarea rows="3" cols="20" style="resize: none;" id="question-text-edit" name="question-text-edit" class="" form="question-text-edit" placeholder="Enter Question..."></textarea> -->
 											<input type="text"  name="question-text-edit" id="question-text-edit" class="pull-left form-group" required="" />
 				@error('question-text-edit')
@@ -321,8 +403,16 @@
 											<div class="col-md-6">
 												<label>Option 1: </label>
 											</div>
-											<div class="col-md-5">
+											<div class="col-md-6">
 												<input name="option1-edit" type="text" class=""  id="option1-edit" placeholder="Option 1"  />
+												@error('option1-edit')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror	         
+								                <span class="invalid-feedback" role="alert">
+								                    <strong class="error_option_edit"></strong>
+								                </span>
 											</div>
 										</div>
 									</div>
@@ -332,8 +422,13 @@
 												<div class="col-md-6">
 													<label>Option 2: </label>
 												</div>
-												<div class="col-md-5">
+												<div class="col-md-6">
 													<input name="option2-edit" type="text" class=""  id="option2-edit" placeholder="Option 2" />
+												@error('option2-edit')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
 												</div>
 											</div>
 										</div>
@@ -344,8 +439,13 @@
 												<div class="col-md-6">
 													<label>Option 3: </label>
 												</div>
-												<div class="col-md-5">
+												<div class="col-md-6">
 													<input name="option3-edit" type="text" class=""  id="option3-edit" placeholder="Option 3" />
+												@error('option3-edit')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
 												</div>
 											</div>
 										</div>
@@ -356,8 +456,13 @@
 												<div class="col-md-6">
 													<label>Option 4: </label>
 												</div>
-												<div class="col-md-5">
+												<div class="col-md-6">
 													<input name="option4-edit" type="text" class=""  id="option4-edit" placeholder="Option 4" />
+												@error('option4-edit')
+								                <span class="invalid-feedback" role="alert">
+								                    <strong>{{ $message }}</strong>
+								                </span>
+								                @enderror
 												</div>
 											</div>
 										</div>
@@ -382,32 +487,21 @@
 									<div class="col-md-6">
 										<label for="answer" class="control-label">Answer</label>
 									</div>
-									<div class="col-md-5">
-										<input id="answer-edit" type="text" class="" name="answer-edit" placeholder="Answer">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
 									<div class="col-md-6">
-										<label for="time" class="control-label">Time:</label>
-									</div>
-									<div class="col-md-5">
-										<input id="question-duration-edit" type="time" class="" name="question-duration-edit" placeholder="in MM:SS format" onkeypress="return isNumberKey(event)" required="" />
-			  @error('question-duration-edit')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-              @enderror
+										<input id="answer-edit" type="text" class="" name="answer-edit" placeholder="Answer">
+										<span class="invalid-feedback" role="alert">
+					                    <strong class="error_answer_edit"></strong>
+					                </span>
 									</div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn_cancel" data-dismiss="modal" style="width: 88px;">Close</button>
-					<button type="submit" class="btn btn_quiz">Save</button>
+					<button type="submit" class="btn btn_quiz mcq_validation_edit">Save</button>
 				</div>
 			</div>
 			{!! Form::close() !!}
@@ -415,17 +509,75 @@
 	</div>
 </div>
 <script type="text/javascript">
+ /*  set time out to success message */
+         setTimeout(function(){
+            $("#message_id_fail").remove();
+        }, 3000 );
+/* add model mcq validation */
+$('.mcq_validation').click(function(){
+	$('.error_option').html('');
+	$('.error_answer').html('');
+	var qtype = $('input[name=question-type]:checked').val();
+	var option1 = $('#option1').val();
+	var option2 = $('#option2').val();
+	var option3 = $('#option3').val();
+	var option4 = $('#option4').val();
+	var answer = $('#answer').val(); 
+
+	if(qtype == 'mcq'){
+		if(option1 == option2 || option1 == option3 || option1 == option4 || option2 == option3 || option2 == option4 || option3 == option4){
+    	 $('.error_option').html('Please do not add same options');
+			return false;    	
+    }
+		var arlene1 = [];
+		arlene1.push(option1);
+		arlene1.push(option2);
+		arlene1.push(option3);
+		arlene1.push(option4);
+		if(arlene1.indexOf(answer) !== -1){
+		        
+		} else{
+		    $('.error_answer').html('Your answer is not valid');
+			return false;
+		}
+	}
+});
+/* edit model mcq validation */
+$('.mcq_validation_edit').click(function(){
+	$('.error_option_edit').html('');
+	$('.error_answer_edit').html('');
+	var qtype = $('input[name=question-type-edit]:checked').val();
+	var option1 = $('#option1-edit').val();
+	var option2 = $('#option2-edit').val();
+	var option3 = $('#option3-edit').val();
+	var option4 = $('#option4-edit').val();
+	var answer = $('#answer-edit').val();
+
+	if(qtype == 'mcq'){
+		 if(option1 == option2 || option1 == option3 || option1 == option4 || option2 == option3 || option2 == option4 || option3 == option4){
+    	 $('.error_option_edit').html('Please do not add same options');
+			return false;    	
+    }
+		var arlene1 = [];
+		arlene1.push(option1);
+		arlene1.push(option2);
+		arlene1.push(option3);
+		arlene1.push(option4);
+		if(arlene1.indexOf(answer) !== -1){		        
+		
+		} else{
+		    $('.error_answer_edit').html('Your answer is not valid');
+			return false;
+		}
+	}
+});
+
 	function isNumberKey(evt){
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
     return true;
 	}
-$("document").ready(function(){
-		setTimeout(function(){
-			$("#message_id").remove();
-		}, 1000 );
-	});
 $(".editquestion").click(function() {
     var Id = $(this).attr('id');  
     var ajax_url = '/getQuestionData/'+Id; 

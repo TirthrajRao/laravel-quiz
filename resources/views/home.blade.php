@@ -4,6 +4,16 @@
 <div class="page-min-height" style="background-color: #343F4A">
     <section class="how_it_work_section">
         <div class="container">
+            <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-4 offset-md-7">
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success" id="message_id">
+                    <p>{{ $message }}</p>
+                </div>
+                @endif
+            </div>
+            </div>
             <div class="section_title" align="center" data-aos="flip-up" data-aos-duration="1000">
                 <p>Simple Steps</p>
                 <h3>How It Works</h3>
@@ -34,29 +44,7 @@
         </div>
     </section>
     
-    <section class="all_quiz_list" style="padding: 40px 0px 16px">
-        <div class="container">
-            <div class="section_title" align="center" data-aos="flip-up" data-aos-duration="1000">
-                <p id="list_p">Quizzes</p>
-                <h3 style="color: #fff">Hike your rank!</h3>
-            </div>
-            <div class="row">
-                @foreach ($allQuiz as $index=>$qz)
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="inner-container">
-                        <div class="card cardHome">
-                            <div class="content active">
-                                <h4>{{ $qz->title}} Quiz</h4>
-                                <p>Created   by {{$qz->name}}<i class="em em-coffee"></i></p>
-                                <a href="/quizWelcome/{{ $qz->quizid }}" class="btn btn_quiz float-left">Start</a>
-                                <a href="/quizLeaderboard/{{ $qz->quizid }}" class="btn btn_quiz float-left" style="background-color: rgba(150,38,166,1)">Leaderboard</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
+    
 </div>
+
 @endsection

@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+/*common css start*/
+body{font-family: 'Open Sans', sans-serif;}
+h1,h2,h3,h4,h5,h6,p{margin: 0}
+ul{padding: 0; margin: 0;}
+a{display: inline-block; text-decoration: none!important; outline: none!important;}
+/*common css end*/
+
+/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  margin: auto;
+  width: 70%;
+  min-width: 300px;
+ /* padding-top: 30px;*/
+}
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  /*display: none;*/
+  padding: 8px;
+  border-radius: 15px;
+  border-style: double;
+}
+.tab button{
+  margin-top: 11px;
+}
+
+/*step1*/ 
+.form_head{
+  background-color: #ffffff;
+  border-bottom: dotted;
+ }
+ .form_head img{
+ 	  height: 75px;
+    width: 90px;
+    position: absolute;
+ }
+.form_head h6{
+	  font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+}
+.form_head p{
+	  font-size: 27px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 5px;
+    color: #212529;
+}
+.sub_head span{
+	  border: 2px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
+    border-right: 15px solid black;
+    border-left: 15px solid black;
+}
+.basic_detail {
+    border: 2px solid black;
+    padding: 15px 20px;
+    margin-top: 7px;
+}
+.basic_detail td{
+    font-weight: 600;
+    font-size: 14px;
+}
+.table3 select {
+    word-wrap: normal;
+    border: none;
+    border-bottom: 3px dotted black;
+    width: 100%;
+    color: #000;
+}
+.table3 option{
+  background: #fff;
+}
+.no{
+	  text-align: right;
+}
+.no label{
+  	font-weight: 600;
+  	font-size: 16px;
+}
+
+/* Style the input fields */
+.table3 input {
+    font-size: 17px;
+    font-family: Raleway;
+    border: none;
+    border-bottom: 3px dotted #000;
+    width: 100%;
+}
+.merge {
+    display: flex;
+}
+span.name, span.period_no {
+    width: 155px;
+}
+.merge span{
+    font-weight: 600;
+}
+
+.table-responsive {
+    overflow-x: visible;
+}
+.d-table{
+	  width: 100%;
+}
+.d-table .row{
+  	display: table;
+  	width: 100%;
+  	padding: 5px 0px;
+}
+.medicine_name{
+  	display: table-cell;
+  	white-space: nowrap;
+}
+.line_border{
+  	width: 100%;
+  	display: table-cell;
+}
+.medicine_stock{
+  	display: table-cell;
+  	white-space: nowrap;
+}
+.general{
+    padding-right: 0px;
+}
+.technic{
+    padding-left: 0px;
+}
+.general_heading{
+    border: 1px solid black;
+    margin-top: 10px;
+    padding:10px;
+    border-bottom: none;
+}
+.general_heading h6{
+	  font-size: 16px;
+    font-weight: 600;
+}
+.technics_head{
+	  border: 1px solid black;
+    margin-top: 10px;
+    padding:10px;
+    border-left: none;
+    border-bottom: none;
+}
+.technics_head h6{
+	  font-size: 16px;
+    font-weight: 600;
+    padding: 0px;
+}
+.aids_head{
+  border-right: 1px solid black;
+    padding:10px;
+    margin-top: -6px;
+}
+.aids_head h6{
+	  font-size: 16px;
+    font-weight: 600;
+}
+textarea{
+  	border: 1px solid #000;
+  	width: 100%;
+  	resize: none;
+    color:black;
+}
+.tech_details{
+    border: 1px solid #000;
+    width: 100%;
+    resize: none;
+    border-left: none;
+        height: 187.5px;
+}
+.table td, .table th {
+	  padding: 5px;
+    vertical-align: top;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid #000!important;
+}
+.table thead th{
+  	text-align: center;
+  	padding: 5px;
+
+}
+.all_details .table  th{
+  	text-align: center;
+  	padding: 5px;
+    font-size: 12px;
+}
+.table input{
+  	width: 100%;
+  	border:none;
+}
+.table textarea{
+  	border: none;
+  	width: 100%;
+  	resize: none;
+}
+/*step1 end*/
+/*step2*/
+.all_details {
+    display: inline-flex;
+}
+.tab.breck_table {
+    border: none;
+}
+.table_line{
+      border-style: double;
+   border-radius: 15px;
+   padding: 5px;
+   overflow: hidden;
+   max-height:  170vh;
+   min-height: 100%;
+   border-collapse: unset;
+}
+.linking_area{
+ max-height:  100px;
+   position: relative;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+.form_ul{
+ list-style: none;
+
+}
+.file_input
+{
+position: absolute;
+   bottom: 0;
+   left: 1px;
+}
+/*step2 end*/
+/*step3*/
+.board_work, .assign_head, .remark_head{
+    text-align: center;
+    border: 1px solid #000;
+    margin-top: 15px;
+ }
+ .board_work h6, .assign_head h6, .remark_head h6{
+ 	  font-size: 16px;
+    font-weight: 600;
+    padding: 5px;
+ }
+ table.table1 {
+    width: 100%;
+}
+.table1 p{
+  color: #000;
+}
+.table1 input{
+	  border:none;
+}
+.table1 td, .date span{
+	  font-weight: 600;
+}
+canvas {
+    background: #fff;
+    border: 2px solid #000;
+    margin: 10px 0;
+}
+.toolbar {
+    padding: 0 10px;
+}
+#paint-app select{
+  color: #000;
+}
+#paint-app option {
+    background-color: #f8fafc;
+}
+
+/*step3 end*/
+/* Mark the steps that are finished and valid: */
+.step{
+    display: none;
+}
+/* For any shape tools that need a live preview */
+.placeholder {
+    position:absolute;
+    z-index:999;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

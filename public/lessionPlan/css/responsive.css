@@ -1,0 +1,145 @@
+@media screen and (max-width: 1920px){
+	.technics_head h6{
+		padding: 0px;
+	}
+	canvas{
+		width: 100%;
+	}
+	.table_line{
+         max-height:  133vh;
+    }
+}
+@media screen and (max-width: 1600px){
+	.technics_head h6{
+		padding:0px;
+	}
+}
+
+@media screen and (max-width: 1367px){
+	.form_head h6{
+		font-size: 30px;
+	}
+	.form_head p{
+		font-size: 20px;
+	}
+	.form_head img {
+	    height: 65px;
+	    width: 85px;
+	}
+	.technics_head{
+		padding: 10px;
+	}
+	
+}	
+
+@media screen and (max-width: 1199px){
+	span.period_no {
+   		width: 195px;
+	}
+	span.name{
+   		width: 170px;
+	}
+	
+}
+
+@media screen and (max-width: 1170px){
+	.technics_head, .technics_head h6{
+		padding:5px;
+	}
+}
+
+@media screen and (max-width: 991px){
+	.form_head h6 {
+    	font-size: 20px;
+	}
+	.form_head p {
+    	font-size: 17px;
+	}
+	.form_head img {
+	    height: 48px;
+	    width: 64px;
+	}
+	.technics_head {
+		padding: 4px;
+	}
+	.technics_head h6 {
+   		font-size: 17px;
+	}
+	span.period_no {
+    	width: 300px;
+	}
+	span.name {
+    	width: 200px;
+	}
+}
+
+@media screen and (max-width: 767px){
+	.form_head img {
+	    height: 75px;
+	    width: 90px;
+	    position: unset;
+	}
+	.form_head{
+		text-align: center;
+	}
+	.general {
+    	 padding-right: 15px; 
+	}
+	.technic{
+		padding-left: 15px;
+	}
+	.table1 td{
+    	font-weight: 600;
+    	font-size: 11px;
+	}
+	span.period_no {
+    	width: 145px;
+	}
+}
+
+@media screen and (max-width: 565px){
+	.table1 td {
+	    font-weight: 600;
+	    font-size: 8px;
+	}
+	span.name {
+    	width: 244px;
+	}
+	span.period_no {
+    	width: 157px;
+	}
+}
+
+@media print {
+	.all_details .print_break{
+		   margin-top: 39%;
+	    page-break-inside: avoid;
+    	display: block;
+	}
+	.technics_head{
+		padding: 10px;
+	}
+	span.name {
+    	width: 200px;
+	}
+	span.period_no {
+    	width: 200px;
+	}
+	button{
+		display: none;
+	}
+	.toolbar{
+		display: none;
+	}
+	canvas{
+		width: 100%;
+		display: block;
+		background-color: #000;
+	}
+	#prevBtn{
+		display: none;
+	}
+	.header_content, #footer, .fa{
+		display: none;
+	}	
+}

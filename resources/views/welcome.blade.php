@@ -63,6 +63,21 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+         @media screen and (max-width: 991px){
+         .page-min-height .responsive_text{
+            font-size: 64px !important;
+        }   
+        }
+        @media screen and (max-width: 767px){
+            .page-min-height .responsive_text {
+            font-size: 50px !important;
+        }
+        } 
+        @media screen and (max-width: 575px){
+            .page-min-height .responsive_text {
+                font-size: 33px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -79,8 +94,8 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Welcome to QuizoPhile
+                  <div class="title m-b-md responsive_text">
+                    Welcome to <span style="color: #009975">Quizo</span>phile
                 </div>
 
                 <div class="links" style="color: #a8a99e">
@@ -88,7 +103,7 @@
                     @auth
                     <span style="color: white">Hey, Appear Quiz,</span> <a href="{{ url('/home') }}" style="padding: 0px 5px; color: #e059ff">Click me</a>
                     @else
-                    <a href="{{ route('login') }}" style="padding: 0px 5px; color: #fff">Login</a> or <a href="{{ route('register') }}" style="padding: 0px 5px;color: #fff">Register</a>  to appear Quizes!
+                    <a href="{{ route('login') }}" style="padding: 0px 5px; color: #009975">Login</a> or <a href="{{ route('register') }}" style="padding: 0px 5px;color: #009975">Register</a>  to appear Quizes!
                     @endif
                     @endauth
                 </div>

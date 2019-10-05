@@ -33,7 +33,7 @@
 			<!-- Test Details -->
 			<div class="row" style="margin: 30px 0px">
 				<div class="col-md-8 offset-md-2">
-					<h3 style="; color: white; font-size: 30px; font-weight: 600"> {{ $test->title }} Quiz</h3>
+					<h3 style="; color: #009975; font-size: 30px; font-weight: 600"> {{ $test->title }} Quiz</h3>
 				</div>
 			</div>
 		</div>

@@ -37,8 +37,13 @@
         'csrfToken' => csrf_token(),
     ]); ?>
 </script>
-<script type="text/javascript">
+<script type="text/javascript">   
     $(document).ready(function(){
+        /*  set time out to success message */
+         setTimeout(function(){
+            $("#message_id").remove();
+        }, 1000 );
+
         $('input[type="radio"]').click(function(){
             var inputValue = $(this).attr("value");
             var targetBox = $("." + inputValue);
@@ -96,6 +101,9 @@
     });
 </script>
 @yield('custom-scripts')
+<?php
+$login_user = Auth::user();
+?>
 <body>
     <div id="app">
         <header>
@@ -121,16 +129,22 @@
                                     <li class="{{ set_active(['register*']) }}">
                                         <a href="{{ url('/register') }}">Signup</a>
                                     </li>
-                                    @else
-                                    <li class="{{ set_active(['home*']) }}">
-                                        <a href="{{ url('/home') }}">Home</a>
+                                    @else                                   
+                                    <li class="{{ set_active(['studentList*']) }}">
+                                        <a href="{{ url('/studentList') }}">Student List</a>
                                     </li>
+                                    <li class="{{ set_active(['sharedQuiz*']) }}">
+                                        <a href="{{ url('/sharedQuiz') }}">Shared Quiz</a>
+                                    </li>
+                                    @if($login_user->is_approved == 1)
                                     <li class="{{ set_active(['createQuiz*']) }}">
                                         <a href="{{ url('/createQuiz') }}">Create Quiz</a>
                                     </li>
-                                    <li class="{{ set_active(['userResults*']) }}">
+
+                                 <!--    <li class="{{ set_active(['userResults*']) }}">
                                         <a href="{{ url('/userResults') }}">My Results</a>
-                                    </li>
+                                    </li> -->
+                                    @endif
                                     <li class="nav-item dropdown">
                                         <a class="nav-link " id="navbarDropdown1" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} 
                                             <i class="fa fa-caret-down"></i>

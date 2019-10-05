@@ -33,8 +33,12 @@
 						<div class="container" style="margin: 20px 0px; color: #fff"> 
 							@foreach($question as $index=>$quest)
 							@if($index == 0)
-							<h4 style="margin: 10px 0px"> {{$quest->title}} Quiz Result: {{$countTrue}} / {{$totalQuestion}} <a href="/quizLeaderboard/{{ $quest->quizid }}" class="btn btn_quiz" style="float: right;">View Leaderboard</a></h4>
-							<h6>Given on {{ Carbon\Carbon::parse($quest->created_at)->format('d-m-Y') }} at {{ Carbon\Carbon::parse($quest->created_at)->format('G:i:s') }}</h6>
+							<?php
+                            $unit = explode(",",$quest->title);
+                            $quizTit =  'Unit - '.$unit[0].', Quiz - '.$unit[1];
+                                ?>
+							<h4 style="margin: 10px 0px"> {{$quizTit}} Result: {{$countTrue}} / {{$totalQuestion}} <a href="/quizLeaderboard/{{ $quest->quizid }}" class="btn btn_quiz" style="float: right;">Score Board</a></h4>
+							
 							@endif 
 							@endforeach
 						</div>
@@ -95,8 +99,7 @@
 										{{$quest->user_response}}
 										@endif
 									</p>
-									<p><strong>Time:</strong> {{ $quest->question_duration }} sec</p>
-									<p><strong>Time taken by You:</strong> {{ $quest->time_taken }} sec</p>
+									
 								</div>
 							</div>
 							@endforeach

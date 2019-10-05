@@ -15,16 +15,15 @@
 		<table class="rwd-table">
 			@foreach($leaderboard as $index=>$leader)
 			@if($index==0)
-			<h5 style="color: #fff; margin-bottom: 35px;text-align: center;">Leaderboard for <b><i>{{$leader->title}}</i></b> Quiz: (Total Questions: <b><i>{{ $leader->total_questions}} </i></b>)</h5>
+			<h5 style="color: #fff; margin-bottom: 35px;text-align: center;">Score Board for <b><i>{{$leader->title}}</i></b> Quiz: (Total Questions: <b><i>{{ $leader->total_questions}} </i></b>)</h5>
 			@endif
 			@endforeach
 			<tbody>
 				<tr>
 					<th>Rank</th>
 					<th>Name</th>
-					<th>Average Score</th>
-					<th>No. of times appeared</th>
-					<th>Updated at</th>
+					<th>Score</th>					
+					<th>Appeared on</th>
 				</tr>
 				@foreach($leaderboard as $index=>$leader)
 				<tr>
@@ -40,13 +39,10 @@
 					@else
 					<td data-th="Name">{{ $leader->name }}</td>
 					@endif
-					<td data-th="Average Score">
-						{{ $leader->avg_score * 100 / $leader->total_questions}}%
-					</td>
-					<td data-th="No. of times appeared">
-						{{ $leader->appear_count }}
-					</td>
-					<td data-th="Updated at">
+					<td data-th="Score">
+						<?php echo  number_format($leader->avg_score * 100 / $leader->total_questions,2); ?>%
+					</td>					
+					<td data-th="Appeared on">
 						{{ Carbon\Carbon::parse($leader->updated_at)->format('d-m-Y') }} at {{ Carbon\Carbon::parse($leader->updated_at)->format('g:i A') }}
 					</td>
 				</tr>

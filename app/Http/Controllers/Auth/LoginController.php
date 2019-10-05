@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Redirect;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -35,5 +36,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    protected function authenticated($request, $user)
+    {
+        if($user->is_admin == '1') {
+            return Redirect::to('home');
+        }elseif ($user->is_admin == '2') {
+            Auth::logout();
+            return Redirect::to('/admin/login');
+
+        }else{
+            return Redirect::to('studentDashboard');
+        }
+        
     }
 }

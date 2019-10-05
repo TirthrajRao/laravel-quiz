@@ -40,6 +40,19 @@ class userController extends Controller
 
 		return view('userResults', ['quizAppeared' => $quizAppeared]);
 	}
+	public function userReport($id){
+		$userId  = $id;
+		$username =  User::find($userId);
+		$quizAppeared = \DB::table('quiz_appears')
+		->join('quizzes', 'quizzes.quizid', '=', 'quiz_appears.quiz_id')
+		->join('users','users.id', '=', 'quizzes.user_id')
+		->where('quiz_appears.user_id', $userId)
+		->select(array('quiz_appears.*', 'users.name','quizzes.title','quizzes.total_questions'))
+		->orderBy('quizzes.created_at','Desc')
+		->paginate(12);
+
+		return view('userResults', ['quizAppeared' => $quizAppeared,'username' => $username->name]);
+	}
 
 	/**
      * View detailed result for particular Quiz to the user
@@ -51,7 +64,7 @@ class userController extends Controller
 		->join('quizzes','quizzes.quizid', '=', 'user_responses.quiz_id')
 		->where('user_responses.userData_appear', $quizappearid->quizappearid)
 		->get(array('user_responses.*', 'quizzes.*', 'questions.*'));
-
+		
 		//for chart************
 		$countTrue = \DB::table('user_responses')->where('userData_appear' , $quizappearid->quizappearid)->where('correct' , 1)->count();
 

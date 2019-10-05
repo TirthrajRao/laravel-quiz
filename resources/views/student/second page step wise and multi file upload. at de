@@ -1,0 +1,54 @@
+second page step wise and multi file upload. at design side black board work diagram and date picker js not load issue.
+
+handover
+wordpressDemo
+usernane
+username@123
+
+woccommerce
+username
+username@123
+
+
+Design issue
+1. create question success message background issue. --
+2. add student in teacher panel design issue. --
+3. add question error msg font and design not proper. --
+4 pagination in create quiz page should be proper.
+5. quiz is not created properly in responsive
+6. space between the boxes in report page should be decrease in small screen.
+7. change the bg color in chart for tooltip
+8. lesson plan image set height and width
+
+
+
+in lesson plan show selected files in reference link.
+
+
+
+
+Today i have completed canvas image store and redraw canvas on edit also display canvas on PDF file.
+
+quiz order and student list order
+quiz title should be edited
+in batch we can write (-) sign in it for add student
+all quiz display in dashboard screen
+add batch and enroll no field in student list
+add no record message in lesson plan 
+
+
+
+canvas links:-
+https://ourcodeworld.com/articles/read/322/how-to-convert-a-base64-image-into-a-image-file-and-upload-it-with-an-asynchronous-form-using-jquery
+
+create canvas on edit mode 
+https://webplatform.github.io/docs/concepts/programming/drawing_images_onto_canvas/
+
+drag and drop
+https://stackoverflow.com/questions/24926028/drag-and-drop-multiple-objects-in-html5-canvas
+
+http://junerockwell.com/drag-image-inside-html5-canvas/
+
+
+https://riptutorial.com/html5-canvas/example/18920/dragging-images-around-the-canvas
+https://dzone.com/articles/making-and-moving-selectable
