@@ -21,9 +21,11 @@ class LessionPlanController extends Controller
     public function lessionList()
     {
     	$user = Auth::user();
-    	$lesson_complete =	LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->count(); 
-       
-       if($lesson_complete >= 5){    
+    	$lesson_complete =	LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->count();
+        $lesson_complete =  LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->paginate(5, ['*'], 'published'); 
+        $lession_draft = LessionPlan::orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->paginate(5, ['*'], 'unpublished'); 
+        $lession = LessionPlan::where('user_id',$user->id)->paginate(5);
+      /* if($lesson_complete >= 5){    
         $lesson_complete =  LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->paginate(5, ['*'], 'published');
        }else{
            
@@ -39,7 +41,7 @@ class LessionPlanController extends Controller
         }else{
            
             $lession_draft = LessionPlan::orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->get(); 
-        }
+        }*/
        
        // $lession_draft->setPageName('other_page');
     	

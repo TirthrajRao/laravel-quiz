@@ -66,7 +66,7 @@
 				@endif
 			
 				<div class="lesson_pagination" style="margin-top: 35px; margin-bottom: 35px;"> 
-					{{ $lesson_complete->links() }}
+					{{ $student->links() }}
 				</div>
 	<!-- add student model-->
 	<div class="modal" id="AddStudent">

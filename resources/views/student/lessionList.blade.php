@@ -100,7 +100,7 @@
 		   @endif
 		   <div class="lesson_pagination" style="margin-top: 35px; margin-bottom: 35px;"> 
 					{{ $lession_draft->links() }}
-				</div>
+		   </div>
 		
 	  </div>
 
