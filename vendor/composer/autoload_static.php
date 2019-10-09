@@ -444,7 +444,6 @@ class ComposerStaticInitdc2a09e442569edd8a11f5f4cf6c7c71
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\QuizController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuizController.php',
         'App\\Http\\Controllers\\admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/AdminController.php',
-        'App\\Http\\Controllers\\appearQuiz' => __DIR__ . '/../..' . '/app/Http/Controllers/appearQuiz.php',
         'App\\Http\\Controllers\\student\\LessionPlanController' => __DIR__ . '/../..' . '/app/Http/Controllers/student/LessionPlanController.php',
         'App\\Http\\Controllers\\student\\StudentQuizController' => __DIR__ . '/../..' . '/app/Http/Controllers/student/StudentQuizController.php',
         'App\\Http\\Controllers\\student\\studentController' => __DIR__ . '/../..' . '/app/Http/Controllers/student/studentController.php',

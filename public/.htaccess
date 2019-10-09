@@ -4,6 +4,7 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /
     RewriteRule ^(.*)?$ ./public/$1
 
     # Handle Authorization Header
