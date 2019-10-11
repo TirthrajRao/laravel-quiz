@@ -26,7 +26,15 @@
 							<th class="headergreen">Email</th>
 							<th class="headergreen">Enroll No.</th>
 							<th class="headergreen">Batch</th>
-							<th class="headergreen">Year <select onclick="changeYear(this.value)" id="changeYear"><option>Select...</option><option value="1">1st Year</option><option value="2">2st Year</option></select></th>
+							
+							
+							<th class="headergreen">Year 
+								<form action="{{ route('studentList') }}" method="get">
+								
+								<select id="changeYear" name="changeYear"><option>Select...</option><option value="1">1st Year</option><option value="2">2st Year</option></select>
+								</form>
+							</th>
+							
 							<th class="headergreen">Action</th>							
 						</tr>
 					</thead>
@@ -66,7 +74,8 @@
 				@endif
 			
 				<div class="lesson_pagination" style="margin-top: 35px; margin-bottom: 35px;"> 
-					{{ $student->links() }}
+					    {{ $student ->onEachSide(3)->links() }}
+
 				</div>
 	<!-- add student model-->
 	<div class="modal" id="AddStudent">
@@ -191,35 +200,12 @@
 @if (count($errors) > 0)
     $('#AddStudent').modal('show');
 @endif
-function changeYear(val){
-	$('#studentList').html('');
-	var Id = val; 	
-	var ajax_url = 'getStudentList/'+Id;     
-                $.ajax({                    
-                    url: ajax_url,
-                    type: "GET",                     
-                    dataType: 'json',                                    
-                    success: function (data) { 
-                    	var setResult = JSON.stringify(data.result);
-                    if(data.success = 'success'){
-			               var trHTML = '';
-					        $.each(data.result, function (index, v) {
-					        	var action_button = '<a href="deleteStudent/'+v.id+'"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Delete</button></a>';
-					        	action_button += '<a href="userReport/'+v.id+'"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Report</button></a>'
-					             trHTML += 
-					                '<tr><td>' + v.name + 
-					                '</td><td>' + v.email + 
-					                '</td><td>' + v.enroll_no + 
-					                '</td><td>' + v.batch + 
-					                '</td><td>' + v.year + 			               
-					                '</td><td>' + action_button + 			               
-					                '</td></tr>';     
-					        });			         
-			            $('#studentList').append(trHTML);
-                  	}
-                    }
-                });
 
-}
+$('#changeYear').on('change', function(e){
+  
+  $(this).closest('form').submit();
+
+});
+
 </script>
 @endsection

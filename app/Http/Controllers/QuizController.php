@@ -16,6 +16,7 @@ use Redirect;
 use Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Support\Jsonable;
 
 
 
@@ -53,15 +54,31 @@ class QuizController extends Controller
 
 	public function createQuiz(Request $request){
 		
+        $user = Auth::user();
+        $qtitle = $request->get('quiz-title'); 
+        $quizResult = Quiz::where('user_id',$user->id)->where('title',$qtitle)->first();  
+        if($quizResult != ''){          
 		$validator = Validator::make($request->all(), [
-			'quiz-title' => 'required|unique:quizzes,title|max:255',
+			'quiz-title' => 'required|max:255|unique:quizzes,title',
 			'num-questions' => 'required|integer|min:2',
 		]);
-		if ($validator->fails()) {
-			 return redirect('createQuiz')
+
+      
+
+        }else{
+            $validator = Validator::make($request->all(), [
+            'quiz-title' => 'required|max:255',
+            'num-questions' => 'required|integer|min:2',
+        ]);
+
+        }
+
+          if ($validator->fails()) {
+             return redirect('createQuiz')
                         ->withErrors($validator)
                         ->withInput();
-		} 
+        } 
+		
 
 		$quiz = new Quiz;
 		$quiz->title = $request->get('quiz-unit').','.$request->get('quiz-number');
@@ -396,10 +413,19 @@ class QuizController extends Controller
      	/*$merged = $student_fyear->merge($student_syear);
      	$student = $merged->all();*/
      	//$student = array_merge($student_fyear, $student_syear);
+        $id = $request->changeYear;           
+        if($id != ''){
+            $student = User::where('year',$id)->where('is_admin',0)->orderBy('name','asc')->orderBy('year','asc')->paginate(5)->setPath ( '' ); 
+            $pagination = $student->appends ( array (
+                'changeYear' => $id
+            ) );
+
+
+        }else{
         $student_fyear = User::where('is_admin',0)->where('year','1')->orderBy('name','asc')->orderBy('year','asc')->get();
         $student_syear = User::where('is_admin',0)->where('year',2)->orderBy('name','asc')->orderBy('year','asc')->get();
         $student = $student_fyear->merge($student_syear)->paginate(5);
-
+        }
      	
      /*	$student_syear = User::where('is_admin',0)->orderBy('name','asc')->orderBy('year','asc')->get();*/
      	return view('studentList',['student'=>$student]); 
@@ -535,11 +561,6 @@ class QuizController extends Controller
 
 		return view('SharedQuiz',['allQuiz'=> $allQuiz]);
 	}
-	public function getStudentList(Request $request)
-	{
-		$id = $request->id;		
-		$result = User::where('year',$id)->where('is_admin',0)->orderBy('name','asc')->orderBy('year','asc')->paginate(5);		
-		return response()->json(['success' => 'success','result' => $result]);
-	}
+	
 			
 }

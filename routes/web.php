@@ -34,7 +34,7 @@ Route::post('/deleteQuestion/{quizId}', 'QuizController@deleteQuestion');
 Route::post('/activateQuiz/{quizId}', 'QuizController@activateQuiz');
 Route::post('/deactivateQuiz/{quizId}', 'QuizController@deactivateQuiz');
 Route::post('/shareQuiz', 'QuizController@shareQuiz');
-Route::get('/studentList', 'QuizController@studentList');
+Route::get('/studentList', 'QuizController@studentList')->name('studentList');
 Route::get('/sharedQuiz', 'QuizController@sharedQuiz');
 Route::get('/deleteStudent/{id}', 'QuizController@deleteStudent')->name('deleteStudent');
 Route::get('/quizWelcome/{quiz}', 'appearQuiz@quizWelcome');
@@ -51,7 +51,6 @@ Route::get('/suggestion/{id}/{qid}', 'QuizController@suggestion')->name('suggest
 Route::post('/createUser', 'QuizController@createUser');
 Route::get('/detailPage/{id}', 'QuizController@detailPage')->name('detailPage');
 Route::get('/quizDetail/{id}', 'QuizController@quizDetail')->name('quizDetail');
-Route::get('/getStudentList/{id}', 'QuizController@getStudentList')->name('getStudentList');
 
 
 /* student module route */

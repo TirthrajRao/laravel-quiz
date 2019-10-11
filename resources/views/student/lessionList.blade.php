@@ -52,7 +52,9 @@
                    
 				@endif
 					<div class="lesson_pagination" style="margin-top: 35px; margin-bottom: 35px;"> 
-					{{ $lesson_complete->links() }}
+					
+						{{$lesson_complete->appends(['published' => $lesson_complete->currentPage(), 'unpublished' => $lession_draft->currentPage()])->links()}}
+
 				</div>
 				
 				
@@ -99,7 +101,10 @@
 					
 		   @endif
 		   <div class="lesson_pagination" style="margin-top: 35px; margin-bottom: 35px;"> 
-					{{ $lession_draft->links() }}
+					
+					
+
+					{{$lession_draft->appends(['published' => $lesson_complete->currentPage(), 'unpublished' => $lession_draft->currentPage()])->links()}}
 		   </div>
 		
 	  </div>

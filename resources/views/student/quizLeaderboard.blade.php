@@ -1,5 +1,34 @@
 @extends('layouts.studentMaster')
 @section('content')
+<?php
+			/*	echo "pre";
+	for($i = 0; $i<4; $i++){
+			print_r($leaderboard[$i]->avg_score);
+			print_r($i);
+		if($i < 4){
+			
+			if($leaderboard[$i]->avg_score == $leaderboard[$i+1]->avg_score)
+			{
+				echo $leaderboard[$i]->avg_score;
+				echo "-";
+				echo $leaderboard[$i+1]->avg_score;
+				echo "equal***";
+			}
+			else
+			{
+				echo "not";
+			}
+		}
+		else
+		{
+			echo "exit";
+		}
+	}
+				exit;*/
+				
+				
+
+				?>
 <div class="page-min-height" style="background-color: rgb(69, 77, 102)">
 	<div class="container">
 		<div class="row" style="margin-top: 30px;">
@@ -13,7 +42,10 @@
 			</div>
 		</div>
 		<table class="rwd-table">
-
+			<?php 
+				$rank = 0;
+				$oldScore = '';
+			?>
 			@foreach($leaderboard as $index=>$leader)
 			@if($index==0)
 			<?php
@@ -23,6 +55,7 @@
 			<h5 style="color: #fff; margin-bottom: 35px;text-align: center;">Score Board for <b><i>{{$quizTit}}</i></b> : (Total Questions: <b><i>{{ $leader->total_questions}} </i></b>)</h5>
 			@endif
 			@endforeach
+	
 			<tbody>
 				<tr>
 					<th class="headergreen">Rank</th>
@@ -30,10 +63,21 @@
 					<th class="headergreen">Score</th>					
 					<th class="headergreen">Appeared on</th>
 				</tr>
+
 				@foreach($leaderboard as $index=>$leader)
 				<tr>
 					<td data-th="Rank">
-						{{ $index+1 }}
+										
+					 <?php	
+						// echo "Comparing OldScore = ".$oldScore." --------------";
+						// echo "leader-avgScore = ".$leader->avg_score."<br/>";
+						if($oldScore != $leader->avg_score){
+							$rank++;
+						}
+						$oldScore = $leader->avg_score;
+					 ?>
+					 {{ $rank }} 
+						<!-- {{$leader->avg_score}} -->
 					</td>
 					@if($index==0)
 					<td data-th="Name">{{ $leader->name }} <i class="fa fa-trophy" style="color: #AF9500; font-size: 20px"></i></td>

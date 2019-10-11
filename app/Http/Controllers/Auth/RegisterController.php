@@ -62,7 +62,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)    
-    {        
+    {      
                
       if($data['imA'] == 'teacher'){
             $check_user = '1';
