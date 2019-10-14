@@ -31,13 +31,13 @@
             </div>
 			<!-- canvas -->
 			<div id="paint-app"></div>
-			<textarea name="base64" id="base64" style="display:none;"></textarea>
+			<textarea name="base64" id="base64" class="frmsubmit" style="display:none;"></textarea>
 
 			<!-- assignment -->
 			<div class="assign_head">
 				<h6>ASSIGNMENT</h6>
 			</div>
-			<textarea rows="8" name="assignment" maxlength="800"></textarea>
+			<textarea rows="8" name="assignment" maxlength="800" class="frmsubmit"></textarea>
 
 			<!-- remark  -->
 			<div class="remark_head">
@@ -84,5 +84,19 @@
 		  var imageCan = canvasGetValue.toDataURL();
 		  document.getElementById('base64').value = imageCan;	
 	}
+$('.frmsubmit').keyup(function(e) {
+ var data = $("form").serialize();
+ var Id = '<?php echo $id; ?>';
+  $.ajax({
+    url: 'createLession3/'+Id,
+    data: data,
+    dataType:'json',
+    type:'POST',       
+    success: function(data) {         
+     
+    }
+     });
+});
+alert("ppp");
 </script>
 @endsection

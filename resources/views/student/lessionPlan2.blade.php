@@ -21,9 +21,9 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td><textarea rows="47" cols="7" name="steps" id="steps"></textarea></td>
-									<td><textarea rows="47" name="specific_objectives" maxlength="1500"></textarea></td>
-									<td><textarea rows="47" cols="30" name="teaching_points" maxlength="1500"></textarea></td>
+									<td><textarea rows="47" cols="7" name="steps" class="frmsubmit" id="steps"></textarea></td>
+									<td><textarea rows="47" name="specific_objectives" class="frmsubmit" maxlength="1500"></textarea></td>
+									<td><textarea rows="47" cols="30" class="frmsubmit" name="teaching_points" maxlength="1500"></textarea></td>
 								</tr>
 							</tbody>
 						</table>
@@ -42,21 +42,21 @@
 							</thead>
 							<tbody>
 								<tr>				        
-									<td rowspan="25"><textarea rows="35" cols="45" name="teacher_activity" maxlength="1000"></textarea></td>
-									<td rowspan="20" ><textarea rows="35"  cols="45" name="student_activity" maxlength=" 1200"></textarea></td>
-									<td><textarea rows="10" name="reference_manual" maxlength="80" style="overflow-y: scroll;"></textarea>
+									<td rowspan="25"><textarea rows="35" cols="45" class="frmsubmit" name="teacher_activity" maxlength="1000"></textarea></td>
+									<td rowspan="20" ><textarea rows="35" class="frmsubmit" cols="45" name="student_activity" maxlength=" 1200"></textarea></td>
+									<td><textarea rows="10" name="reference_manual" class="frmsubmit"  maxlength="80" style="overflow-y: scroll;"></textarea>
 									</td>
 								</tr>
 									<tr>
 										<td>
-										<input type="file" name="reference[]" id="reference" multiple style="overflow-y: scroll;">			
+										<input type="file" class="frmsubmit" name="reference[]" id="reference" multiple style="overflow-y: scroll;">			
 									</td>
 								</tr>
 								<tr>
 									<th>Details of Evaluation</th>
 								</tr>
 								<tr>
-									<td><textarea rows="12" name="evaluation" maxlength="100"></textarea></td>	
+									<td><textarea rows="12" name="evaluation" class="frmsubmit" maxlength="100"></textarea></td>	
 								</tr>
 							</tbody>
 						</table>	
@@ -82,5 +82,20 @@ $("#steps").keypress(function (e) {
    return false;
   } 
 });	
+
+$('.frmsubmit').keyup(function(e) {
+ 	 var data = $("form").serialize();
+ 	 var Id = '<?php echo $id; ?>';
+      $.ajax({
+        url: 'createLession2/'+Id,
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {
+        	$('#lesId').val(data.id);
+         
+        }
+         });
+ });
 </script>
 @endsection

@@ -84,7 +84,7 @@
 						</td>	
 						<td data-th="Action">
 							<a href="{{ route('deleteLession',$lession_drafts->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Delete</button></a>
-							<a href="{{ route('lessionPlan2Edit',$lession_drafts->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Start</button></a>
+							<a href="{{ route('startLessonPage',$lession_drafts->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Start</button></a>
 						</td>
 					</tr>
 					@endforeach

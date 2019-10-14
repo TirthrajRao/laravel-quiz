@@ -239,22 +239,7 @@ class StudentQuizController extends Controller
 		->orderBy('avg_score', 'desc')
 		->limit(10)
 		->get(array('users.name', 'quizzes.title', 'quizzes.total_questions', 'average_scores.*'));
-        $arrscore = array();
-        foreach($topScorer as $arrytopScorer){
-            $arrscore[] = $arrytopScorer->avg_score;
-        }
-     $ranks = array(1);
-   /* for ($i = 1; $i < count($arrscore); $i++)
-    {
-        if ($arrscore[$i] != $arrscore[$i-1])
-            $ranks[$i] = $i + 1;
-        else
-            $ranks[$i] = $ranks[$i-1];
-    }*/
-
-
-
-		return view('student/quizLeaderboard', ['leaderboard' => $topScorer,'arrscore'=> $arrscore]);
+		return view('student/quizLeaderboard', ['leaderboard' => $topScorer]);
 	}
 	public function showAppearedQuiz(Request $request){
 		$userId  = Auth::user()->id;

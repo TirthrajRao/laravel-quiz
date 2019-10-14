@@ -13,6 +13,10 @@
 			</div>
 		</div>
 		<table class="rwd-table">
+			<?php 
+				$rank = 0;
+				$oldScore = '';
+			?>
 			@foreach($leaderboard as $index=>$leader)
 			@if($index==0)
 			<h5 style="color: #fff; margin-bottom: 35px;text-align: center;">Score Board for <b><i>{{$leader->title}}</i></b> Quiz: (Total Questions: <b><i>{{ $leader->total_questions}} </i></b>)</h5>
@@ -28,7 +32,20 @@
 				@foreach($leaderboard as $index=>$leader)
 				<tr>
 					<td data-th="Rank">
-						{{ $index+1 }}
+						 <?php							
+						if($oldScore != $leader->avg_score){
+							$rank++;
+						}
+						$oldScore = $leader->avg_score;
+					 ?>
+					 {{ $rank }}
+					<?php
+					$userId  = Auth::user()->id;
+					if($leader->user_id == $userId){ ?>
+						<span style="color:#009975">You</span>
+					<?php }
+
+					?>
 					</td>
 					@if($index==0)
 					<td data-th="Name">{{ $leader->name }} <i class="fa fa-trophy" style="color: #AF9500; font-size: 20px"></i></td>

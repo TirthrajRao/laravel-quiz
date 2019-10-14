@@ -21,9 +21,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><textarea rows="47" cols="7" name="steps" id="steps">{{$lession_result->steps}}</textarea></td>
-                                    <td><textarea rows="47" name="specific_objectives" maxlength="1500">{{$lession_result->specific_objectives}}</textarea></td>
-                                    <td><textarea rows="47" cols="30" name="teaching_points" maxlength="1500">{{$lession_result->teaching_points}}</textarea></td>
+                                    <td><textarea rows="47" cols="7" class="frmsubmit" name="steps" id="steps">{{$lession_result->steps}}</textarea></td>
+                                    <td><textarea rows="47" class="frmsubmit" name="specific_objectives" maxlength="1500">{{$lession_result->specific_objectives}}</textarea></td>
+                                    <td><textarea rows="47" class="frmsubmit" cols="30" name="teaching_points" maxlength="1500">{{$lession_result->teaching_points}}</textarea></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -42,8 +42,8 @@
 								</thead>
 								<tbody>
                                     <tr>                        
-                                        <td rowspan="25"><textarea rows="35" cols="45" name="teacher_activity" maxlength="1000">{{$lession_result->teacher_activity}}</textarea></td>
-                                        <td rowspan="20" ><textarea rows="35"  cols="45" name="student_activity"  maxlength=" 1200">{{$lession_result->student_activity}}</textarea></td>
+                                        <td rowspan="25"><textarea rows="35" cols="45" name="teacher_activity" maxlength="1000" class="frmsubmit">{{$lession_result->teacher_activity}}</textarea></td>
+                                        <td rowspan="20" ><textarea rows="35" class="frmsubmit" cols="45" name="student_activity"  maxlength=" 1200">{{$lession_result->student_activity}}</textarea></td>
                                         <td class="linking_area">
                                             <?php
                                             $result = explode(',', $lession_result->reference);
@@ -55,7 +55,7 @@
                                             </li>        
                                             @endforeach
                                             </ul>
-                                            <textarea rows="10" maxlength="80" name="reference_manual">{{$lession_result->reference_manual}}</textarea>
+                                            <textarea rows="10" maxlength="80" name="reference_manual" class="frmsubmit">{{$lession_result->reference_manual}}</textarea>
                                             
                                             <!-- <a href="{{ route('openPdf',$lession_result->id) }}"  target="_blank">{{$lession_result->reference}}</a> -->   
                                             <!-- <button type="button" id="add_multifile">add</button> -->
@@ -63,14 +63,14 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="file" name="reference[]" id="reference" class="" multiple >
+                                            <input type="file" name="reference[]" id="reference" class="frmsubmit" multiple >
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Details of Evaluation</th>
                                     </tr>
                                     <tr>
-                                        <td><textarea rows="12" name="evaluation"maxlength="100">{{$lession_result->evaluation}}</textarea></td>                               
+                                        <td><textarea rows="12" name="evaluation"maxlength="100" class="frmsubmit">{{$lession_result->evaluation}}</textarea></td>                               
                                     </tr>
                                 </tbody>
 							</table>	
@@ -97,6 +97,20 @@ $("#steps").keypress(function (e) {
    if (e.which != 8 && e.which != 0 && e.which != 13 && e.which != 32 && (e.which < 48 || e.which > 57)) {
    return false;
   } 
-});    
-</script>
+}); 
+
+$('.frmsubmit').keyup(function(e) {
+     var data = $("form").serialize();
+     var Id = '<?php echo $lession_result->id; ?>';
+      $.ajax({
+        url: '/updateLesson2/'+Id,
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {         
+         
+        }
+    });
+ });
+ </script>
 @endsection

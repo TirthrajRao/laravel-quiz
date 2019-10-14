@@ -1,34 +1,5 @@
 @extends('layouts.studentMaster')
 @section('content')
-<?php
-			/*	echo "pre";
-	for($i = 0; $i<4; $i++){
-			print_r($leaderboard[$i]->avg_score);
-			print_r($i);
-		if($i < 4){
-			
-			if($leaderboard[$i]->avg_score == $leaderboard[$i+1]->avg_score)
-			{
-				echo $leaderboard[$i]->avg_score;
-				echo "-";
-				echo $leaderboard[$i+1]->avg_score;
-				echo "equal***";
-			}
-			else
-			{
-				echo "not";
-			}
-		}
-		else
-		{
-			echo "exit";
-		}
-	}
-				exit;*/
-				
-				
-
-				?>
 <div class="page-min-height" style="background-color: rgb(69, 77, 102)">
 	<div class="container">
 		<div class="row" style="margin-top: 30px;">
@@ -59,7 +30,7 @@
 			<tbody>
 				<tr>
 					<th class="headergreen">Rank</th>
-					<th class="headergreen">Name</th>
+					<!-- <th class="headergreen">Name</th> -->
 					<th class="headergreen">Score</th>					
 					<th class="headergreen">Appeared on</th>
 				</tr>
@@ -68,18 +39,23 @@
 				<tr>
 					<td data-th="Rank">
 										
-					 <?php	
-						// echo "Comparing OldScore = ".$oldScore." --------------";
-						// echo "leader-avgScore = ".$leader->avg_score."<br/>";
+					 <?php							
 						if($oldScore != $leader->avg_score){
 							$rank++;
 						}
 						$oldScore = $leader->avg_score;
 					 ?>
-					 {{ $rank }} 
+					 {{ $rank }}
+					<?php
+					$userId  = Auth::user()->id;
+					if($leader->user_id == $userId){ ?>
+						<span style="color:#009975">You</span>
+					<?php }
+
+					?>
 						<!-- {{$leader->avg_score}} -->
 					</td>
-					@if($index==0)
+					<!-- @if($index==0)
 					<td data-th="Name">{{ $leader->name }} <i class="fa fa-trophy" style="color: #AF9500; font-size: 20px"></i></td>
 					@elseif($index==1)
 					<td data-th="Name">{{ $leader->name }} <i class="fa fa-trophy" style="color: #B4B4B4; font-size: 20px"></i></td>
@@ -87,7 +63,7 @@
 					<td data-th="Name">{{ $leader->name }} <i class="fa fa-trophy" style="color: #AD8A56; font-size: 20px "></i></td>
 					@else
 					<td data-th="Name">{{ $leader->name }}</td>
-					@endif
+					@endif -->
 					<td data-th="Score">
 						<?php echo number_format($leader->avg_score * 100 / $leader->total_questions,2); ?>%
 					</td>					

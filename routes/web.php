@@ -64,6 +64,8 @@ Route::get('/quizLeaderboardStudent/{quiz}', 'student\StudentQuizController@view
 Route::get('/userResultsStudent', 'student\StudentQuizController@showAppearedQuiz');
 Route::get('/lessionPlans', 'student\LessionPlanController@lessionPlan');
 Route::post('/createLession/{id?}', 'student\LessionPlanController@createLession')->name('createLession');
+Route::post('/createLessionajax/{id?}', 'student\LessionPlanController@createLessionajax')->name('createLessionajax');
+
 Route::get('/addReference', 'student\LessionPlanController@addReference')->name('addReference');
 Route::get('lessionPlan2/{id}', 'student\LessionPlanController@lessionPlan2')->name('lessionPlan2');
 Route::post('/createLession2/{id}', 'student\LessionPlanController@createLession2')->name('createLession2');
@@ -77,6 +79,8 @@ Route::post('/updateLession3/{id}', 'student\LessionPlanController@updateLession
 Route::get('/openPdf/{id}', 'student\LessionPlanController@openPdf')->name('openPdf');
 Route::get('/lessionPlan2Edit/{id}', 'student\LessionPlanController@lessionPlan2Edit')->name('lessionPlan2Edit');
 Route::get('/downloadLesson/{id}', 'student\LessionPlanController@downloadLesson')->name('downloadLesson');
+Route::get('/startLessonPage/{id}', 'student\LessionPlanController@startLessonPage')->name('startLessonPage');
+
 
 /* admin route */
 Route::group(['prefix' => 'admin'], function() {

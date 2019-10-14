@@ -23,27 +23,9 @@ class LessionPlanController extends Controller
     	$user = Auth::user();
     	
         $lesson_complete =  LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->paginate(5, ['*'], 'published'); 
-        $lession_draft = LessionPlan::orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->paginate(5, ['*'], 'unpublished'); 
+        $lession_draft = LessionPlan::orwhere('draft_page','!=',3)->orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->paginate(5, ['*'], 'unpublished'); 
         $lession = LessionPlan::where('user_id',$user->id)->paginate(5);
-      /* if($lesson_complete >= 5){    
-        $lesson_complete =  LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->paginate(5, ['*'], 'published');
-       }else{
-           
-        $lesson_complete =  LessionPlan::where('user_id',$user->id)->where('draft_page',3)->orderBy('created_at','Desc')->get();
-       }
-
-    	$lession = LessionPlan::where('user_id',$user->id)->paginate(5);
-
-    	$lession_draft = LessionPlan::orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->count(); 
-        if($lession_draft >= 5){
-           
-            $lession_draft = LessionPlan::orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->paginate(5, ['*'], 'unpublished'); 
-        }else{
-           
-            $lession_draft = LessionPlan::orwhere('draft_page',null)->orderBy('created_at','Desc')->where('user_id',$user->id)->get(); 
-        }*/
-       
-       // $lession_draft->setPageName('other_page');
+        
     	
     	return view('student/lessionList',['lesson_complete' => $lesson_complete, 'user'=>$user,'lession' => $lession,'lession_draft' => $lession_draft]);
     }
@@ -61,9 +43,16 @@ class LessionPlanController extends Controller
     }    
     
     public function createLession(Request $request,$id=0)
-    { 
+    {        
 
-    	if(!empty($id)){
+         if($id == ''){
+             $id = $request->lesId; 
+        }else{
+            $id = $id;
+        } 
+       
+    	if(!empty($id)){          
+            
     		/* For Update */
     		$result = LessionPlan::find($id);
     		$result->lession_no = $request->lesson_no;
@@ -84,31 +73,37 @@ class LessionPlanController extends Controller
     		$result->author_ref_book = $request->author_ref_book;
     		$result->pageno_refbook = $request->page_refbook;
     		$result->pageno_textbook = $request->page_textbook;
+            if($result->draft_page != '3'){
+            $result->draft_page = '1';
+            }
     		$result->update();
 
     	$lession_result = LessionPlan::where('id',$id)->first();  
         return view('student/lessionPlan2Edit',['lession_result'=>$lession_result]);
 
     	}else{
-    		/* For Add */
-
-    	
+                      
+    		/* For Add */       
     	$user = Auth::user();
-    	$obj = $request->specific_objectives;
-       	$parts = explode("/\s/", $obj);   
-
+        $lessonNo = $request->lesson_no;
+        $lesId = $request->lesId;       
+        $standard = $request->standard;
+        $date = $request->datepicker1;
+        $period = $request->period_no;
+        $time = $request->time;
+        $timeTo =  $request->time_to;
+        $topic = $request->topic;
     	$id = LessionPlan::insertGetId([
     		'user_id' => $user->id,
-            'lession_no' => $request->lesson_no,
+            'lession_no' => $lessonNo,
             'school_name' => $request->school_name,
-            'standard' => $request->standard,
+            'standard' => $standard,
             'subject' => $request->subject,
             'topic' => $request->topic,
-            'date_lession' => $request->datepicker1,
-
-            'period_no' => $request->period_no,      
-            'time' => $request->time,
-			'time_to' => $request->time_to,
+            'date_lession' => $date,
+            'period_no' => $period,      
+            'time' => $time,
+			'time_to' => $timeTo,
             'general_objectives' => $request->general_objectives,
             'approach_technique' => $request->approach_technique,
             'teaching_aids' => $request->teaching_aids,
@@ -119,13 +114,98 @@ class LessionPlanController extends Controller
             'pageno_refbook' => $request->page_refbook,
             'pageno_textbook' => $request->page_textbook
         ]); 
-       	return redirect()->route('lessionPlan2',$id);   
-		}
+         return redirect()->route('lessionPlan2',$id);   
+    }  
+      
+	}
+    
+    public function createLessionajax(Request $request,$id=0)
+    {
+        $user = Auth::user();
+        $lessonNo = $request->lesson_no;       
+        if($id == ''){
+             $lesId = $request->lesId; 
+        }else{
+            $lesId = $id;
+        } 
+        $standard = $request->standard;
+        $date = $request->datepicker1;
+        $period = $request->period_no;
+        $time = $request->time;
+        $timeTo =  $request->time_to;
+        $topic = $request->topic;
+        if($lessonNo != '' && $topic != ''){
+           if($lesId != ''){
+    
+        $checkResult = LessionPlan::where('user_id',$user->id)->where('id',$lesId)->first();
+        $id = $lesId;
+        if(!empty($checkResult)){           
+
+            $checkResult->lession_no = $lessonNo;
+            $checkResult->school_name = $request->school_name;
+            $checkResult->standard = $standard;
+            $checkResult->subject = $request->subject;
+            $checkResult->topic = $topic;
+            $checkResult->date_lession = $request->datepicker1;
+            $checkResult->period_no = $request->period_no;
+            $checkResult->time = $request->time;
+            $checkResult->time_to = $request->time_to;
+            $checkResult->general_objectives = $request->general_objectives;
+            $checkResult->approach_technique = $request->approach_technique;
+            $checkResult->teaching_aids = $request->teaching_aids;
+            $checkResult->text_book = $request->text_book;
+            $checkResult->refernce_books = $request->refernce_books;
+            $checkResult->author_book = $request->author_book;
+            $checkResult->author_ref_book = $request->author_ref_book;
+            $checkResult->pageno_refbook = $request->page_refbook;
+            $checkResult->pageno_textbook = $request->page_textbook;
+            $checkResult->update();
+        }
+        }else{
+            $id = LessionPlan::insertGetId([
+            'user_id' => $user->id,
+            'lession_no' => $lessonNo,
+            'school_name' => $request->school_name,
+            'standard' => $standard,
+            'subject' => $request->subject,
+            'topic' => $request->topic,
+            'date_lession' => $date,
+            'period_no' => $period,      
+            'time' => $time,
+            'time_to' => $timeTo,
+            'general_objectives' => $request->general_objectives,
+            'approach_technique' => $request->approach_technique,
+            'teaching_aids' => $request->teaching_aids,
+            'text_book' => $request->text_book,
+            'refernce_books' => $request->refernce_books,
+            'author_book' => $request->author_book,
+            'author_ref_book' => $request->author_ref_book,         
+            'pageno_refbook' => $request->page_refbook,
+            'pageno_textbook' => $request->page_textbook
+        ]);
+        }
+        return response()->json(['success' => 'success','id' => $id]);
+        }
     } 
     public function  lessionPlan2Edit(Request $request,$id)
-    {
-    	$lession_result = LessionPlan::where('id',$id)->first();
-    	return view('student/lessionPlan2Edit',['lession_result' => $lession_result]);
+    {       
+        $user = Auth::user();
+    	$lession_result = LessionPlan::where('id',$id)->first();       
+        return view('student/lessionPlan2Edit',['lession_result' => $lession_result]);  	
+    }
+    public function  startLessonPage(Request $request,$id)
+    {       
+        $user = Auth::user();
+        $lession_result = LessionPlan::where('id',$id)->first();        
+        if($lession_result->draft_page == 2){
+            return view('student/lessionPlan3Edit',['id'=>$id,'lession_result' => $lession_result]);
+        }elseif($lession_result->draft_page == 1){
+         return view('student/lessionPlan2Edit',['lession_result' => $lession_result]);
+
+        }else{
+            return view('student/lessionPlansEdit',['lession_result'=>$lession_result,'user' => $user]);
+
+        }
     }
     
     public function  lessionPlan2(Request $request,$id)
@@ -141,7 +221,7 @@ class LessionPlanController extends Controller
     	return response()->json(['success' => 'success']);
     } 
     public function  createLession2(Request $request,$id)
-    {    	
+    {    	     
     	$result = LessionPlan::find($id);
     	 /* Second Page */      
 			$files = $request->file('reference');
@@ -168,7 +248,11 @@ class LessionPlanController extends Controller
 			$result->reference = $comma_separated;
             $result->reference_manual = $request->reference_manual;
 			$result->evaluation = $request->evaluation;
-			$result->draft_page = 2;
+            if(!$request->ajax()){
+                if($result->draft_page != '3'){
+			         $result->draft_page = '2';
+                }     
+            }
 			$result->update();
 			return redirect()->route('lessionPlan3',$id);
     }
@@ -179,10 +263,10 @@ class LessionPlanController extends Controller
 
     }
     public function  createLession3(Request $request,$id)
-    {    	
+    {   	
+        
     	$result = LessionPlan::find($id);
-
-        $baseFromJavascript =  $request->base64;        
+        $baseFromJavascript =  $request->base64; 
         $base_to_php = explode(',', $baseFromJavascript);
         $data = base64_decode($base_to_php[1]);
         $filename = /*rand(100,1000)*/$id.'.png';
@@ -197,7 +281,8 @@ class LessionPlanController extends Controller
 
     } 
     public function  updateLesson2(Request $request,$id)
-    {    	
+    {  
+       
     	$result = LessionPlan::find($id);
 
     	 /* Second Page */      
@@ -225,7 +310,12 @@ class LessionPlanController extends Controller
 			$result->reference = $comma_separated;
             $result->reference_manual = $request->reference_manual;
 			$result->evaluation = $request->evaluation;
-			$result->update();
+            if(!$request->ajax()){
+                 if($result->draft_page != '3'){
+                    $result->draft_page = '2';
+                }
+			}
+            $result->update();
 
 			$lession_result = LessionPlan::where('id',$id)->first();  
    			return view('student/lessionPlan3Edit',['id'=>$id,'lession_result' => $lession_result]);
@@ -233,24 +323,31 @@ class LessionPlanController extends Controller
     }
     public function  updateLession3(Request $request,$id)
     {
+        
     	$result = LessionPlan::find($id);
 
-        $baseFromJavascript =  $request->base64;      
-        $base_to_php = explode(',', $baseFromJavascript);
-        $data = base64_decode($base_to_php[1]);       
+        $baseFromJavascript =  $request->base64; 
         $filename = $id.'.png';
-        $filepath =  base_path()."/public/canvas/".$filename; // or image.jpg
-
         if(file_exists($filename)){
-           
-        
-           unlink(base_path() .  '/public/canvas/' . $filename);
+         $base_to_php = explode(',', $baseFromJavascript);
+         $data = base64_decode($base_to_php[1]); 
+         $filepath =  base_path()."/public/canvas/".$filename; // or image.jpg       
+         unlink(base_path() .  '/public/canvas/' . $filename); 
+         file_put_contents($filepath,$data);
+       }else{
+         if(!$request->ajax()){
+        $base_to_php = explode(',', $baseFromJavascript);
+        $data = base64_decode($base_to_php[1]);
+        $filename = /*rand(100,1000)*/$id.'.png';
+        $filepath = base_path()."/public/canvas/".$filename; // or image.jpg
+        file_put_contents($filepath,$data);
+        }
        }
 
-        file_put_contents($filepath,$data);
-
     	$result->assignment = $request->assignment;
-    	$result->draft_page = 3;
+        if(!$request->ajax()){
+    	   $result->draft_page = '3';
+        }
         $result->diagram = $filename;
     	$result->update();
     	return redirect()->route('lessionList');
@@ -260,7 +357,6 @@ class LessionPlanController extends Controller
         $file = base_path()."/public/files/".$docFile;
        // $file='/var/www/html/shraddha/laravelQuiz/public/files/'.$docFile;
          $extension = explode(".",$docFile);
-
          foreach($extension as $extensions){
             if($extensions == 'pdf'){
                $content_types =  'application/pdf';
@@ -297,7 +393,7 @@ class LessionPlanController extends Controller
 
     }
     public function  downloadLesson(Request $request,$id)
-    {    
+    {   
         
         $lession_result = LessionPlan::find($id);
         $user = Auth::user();

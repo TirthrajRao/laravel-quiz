@@ -35,13 +35,13 @@
 
 			<!-- canvas -->
 			<div id="paint-app"></div>
-			  <textarea name="base64" id="base64" style="display:none;"></textarea>
+			  <textarea name="base64" id="base64" style="display:none;" class="frmsubmit"></textarea>
 
 			<!-- assignment -->
 			<div class="assign_head">
 				<h6>ASSIGNMENT</h6>
 			</div>
-			<textarea rows="8" name="assignment" maxlength="800">{{$lession_result->assignment}}</textarea>
+			<textarea rows="8" name="assignment" maxlength="800" class="frmsubmit">{{$lession_result->assignment}}</textarea>
 
 			<!-- remark  -->
 			<div class="remark_head">
@@ -89,7 +89,10 @@
 
 		var panel = elt('div', {class: 'picturepanel'}, canvas);
 		parent.appendChild(elt('div', null, panel, toolbar));
-		cx.drawImage(image, 0, 0);
+		window.onload=function(){
+
+			cx.drawImage(image, 0, 0);
+		}
 	}
 	function _Go() {
   _MouseEvents();
@@ -107,5 +110,17 @@
 		  var imageCan = canvasGetValue.toDataURL();
 		  document.getElementById('base64').value = imageCan;	
 	}
+$('.frmsubmit').keyup(function(e) {
+     var data = $("form").serialize();
+     var Id = '<?php echo $id; ?>';
+      $.ajax({
+        url: '/updateLession3/'+Id,
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {         
+        }
+         });
+ });
 </script>
 @endsection

@@ -1,10 +1,9 @@
 @extends('layouts.studentMaster')
 @section('content')
 <div class="page-min-height" style="background-color: #454d66">
-	<section class="all_quiz_list" style="padding: 40px 0px 16px">
-	
+	<section class="all_quiz_list" style="padding: 40px 0px 16px">	
 	{!! Form::open(array('id' => 'regForm','url' => 'createLession/'.$lession_result->id,'role' => 'form','enctype' => 'multipart/form-data','files' => true,)) !!}
-
+	<input type="hidden" name="lesId" id="lesId">
 		<!-- One "tab" for each step in the form: -->
 		<div class="tab">
 			<!-- form heading -->
@@ -26,7 +25,7 @@
 			</div>
 			<div class="no">
 				<label>LESSON NO.</label>
-				<input type="text" name="lesson_no" value="{{$lession_result->lession_no}}">			
+				<input type="text" name="lesson_no" class="frmsubmit" value="{{$lession_result->lession_no}}">			
 			</div>
 
 			<!-- detailstable -->
@@ -43,14 +42,14 @@
 						<div class="col-md-8 mt-2">
 							<div class="merge">
 								<span class="name">SCHOOL NAME</span>
-								<input oninput="this.className = ''" name="school_name" value="{{$lession_result->school_name}}">
+								<input oninput="this.className = ''" name="school_name" value="{{$lession_result->school_name}}" class="frmsubmit">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>STD </span> 
-								<select  name="standard">
+								<select  name="standard" onchange="saveDraft();">
 									<option value="6" {{$lession_result->standard == '6' ? ' selected="selected"' : ''}}>6</option>
 									<option value="7" {{$lession_result->standard == '7' ? ' selected="selected"' : ''}}>7</option>
 									<option value="8" {{$lession_result->standard == '8' ? ' selected="selected"' : ''}}>8</option>
@@ -62,7 +61,7 @@
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>SUBJECT </span>
-								<select name="subject">
+								<select name="subject" onchange="saveDraft();">
 									<option value="english" {{$lession_result->subject == 'english' ? ' selected="selected"' : ''}}>English</option>
 									<option value="gujrati" {{$lession_result->subject == 'gujrati' ? ' selected="selected"' : ''}}>Gujrati</option>
 									<option value="s.s" {{$lession_result->subject == 's.s' ? ' selected="selected"' : ''}}>S.S.</option>
@@ -77,35 +76,35 @@
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>TOPIC </span>
-								<input oninput="this.className = ''" name="topic" value="{{$lession_result->topic}}">
+								<input oninput="this.className = ''" name="topic" value="{{$lession_result->topic}}" class="frmsubmit">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>DATE </span>
-								<input id="datepicker1" name="datepicker1" value="{{$lession_result->date_lession}}" autocomplete="off">
+								<input id="datepicker1" name="datepicker1" value="{{$lession_result->date_lession}}" autocomplete="off" onchange="saveDraft();">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span class="period_no">PERIOD NO.</span>
-								<input oninput="this.className = ''" class="time" name="period_no" value="{{$lession_result->period_no}}">
+								<input oninput="this.className = ''" class="time frmsubmit" name="period_no" value="{{$lession_result->period_no}}">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>TIME </span>
-								<input oninput="this.className = ''" class="timepicker time" name="time" value="{{$lession_result->time}}" autocomplete="off">
+								<input oninput="this.className = ''" onchange="saveDraft();" class="timepicker time frmsubmit" name="time" value="{{$lession_result->time}}" autocomplete="off">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>TO </span>
-								<input oninput="this.className = ''" class="timepicker time" name="time_to" value="{{$lession_result->time_to}}" autocomplete="off">
+								<input oninput="this.className = ''" onchange="saveDraft();" class="timepicker time frmsubmit" name="time_to" value="{{$lession_result->time_to}}" autocomplete="off">
 							</div>
 						</div>
 					</div>
@@ -119,7 +118,7 @@
 						<h6>General Objectives</h6>
 					</div>
 					<div class="general_detail">
-						<textarea rows="17" name="general_objectives" maxlength="700">{{$lession_result->general_objectives}}</textarea>
+						<textarea rows="17" name="general_objectives" maxlength="700" class="frmsubmit">{{$lession_result->general_objectives}}</textarea>
 					</div>
 				</div>
 
@@ -128,13 +127,13 @@
 						<h6>Approach Technique</h6>
 					</div>
 					<div class="general_detail">
-						<textarea rows="11" class="tech_details" name="approach_technique" maxlength="200">{{$lession_result->approach_technique}}</textarea>
+						<textarea rows="11" class="tech_details frmsubmit" name="approach_technique" maxlength="200">{{$lession_result->approach_technique}}</textarea>
 					</div>
 					<div class="aids_head text-center">
 						<h6>Teaching Aids</h6>
 					</div>
 					<div class="general_detail">
-						<textarea rows="13" class="tech_details" name="teaching_aids" maxlength="140">{{$lession_result->teaching_aids}}</textarea>
+						<textarea rows="13" class="tech_details frmsubmit" name="teaching_aids" maxlength="140">{{$lession_result->teaching_aids}}</textarea>
 					</div>
 					
 				</div>
@@ -154,15 +153,15 @@
 					<tbody>
 						<tr>
 							<td>Text Book</td>
-							<td><input oninput="this.className = ''" name="text_book" maxlength="50" value="{{$lession_result->text_book}}"></td>
-							<td><textarea rows="1" cols="2" name="author_book" maxlength="10">{{$lession_result->author_book}}</textarea></td>
-							<td><textarea rows="1" cols="1" name="page_textbook" id="page_textbook" maxlength="5">{{$lession_result->pageno_textbook}}</textarea></td>
+							<td><input oninput="this.className = ''" name="text_book" maxlength="50" value="{{$lession_result->text_book}}" class="frmsubmit"></td>
+							<td><textarea rows="1" cols="2" name="author_book" class="frmsubmit" maxlength="10">{{$lession_result->author_book}}</textarea></td>
+							<td><textarea rows="1" cols="1" name="page_textbook" class="frmsubmit" id="page_textbook" maxlength="5">{{$lession_result->pageno_textbook}}</textarea></td>
 						</tr>
 						<tr>
 							<td>Refernce Book</td>
-							<td><textarea rows="4" name="refernce_books" maxlength="120">{{$lession_result->refernce_books}}</textarea></td>
-							<td><textarea rows="4" cols="2" name="author_ref_book"maxlength="30">{{$lession_result->author_ref_book}}</textarea></td>
-							<td><textarea rows="4" cols="1" name="page_refbook" id="page_refbook" maxlength="5">{{$lession_result->pageno_refbook}}</textarea></td>
+							<td><textarea rows="4" name="refernce_books" class="frmsubmit" maxlength="120">{{$lession_result->refernce_books}}</textarea></td>
+							<td><textarea rows="4" cols="2" name="author_ref_book"maxlength="30" class="frmsubmit">{{$lession_result->author_ref_book}}</textarea></td>
+							<td><textarea rows="4" cols="1" class="frmsubmit" name="page_refbook" id="page_refbook" maxlength="5">{{$lession_result->pageno_refbook}}</textarea></td>
 						</tr>
 					</tbody>
 				</table>
@@ -191,5 +190,34 @@ $("#page_textbook , #page_refbook").keypress(function (e) {
    return false;
   } 
 });
+
+$('.frmsubmit').keyup(function(e) {
+ 	 var data = $("form").serialize();
+ 	 var Id = '<?php echo $lession_result->id; ?>';
+      $.ajax({
+        url: '/createLessionajax/'+Id,
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {
+        	$('#lesId').val(data.id);
+         
+        }
+         });
+ });
+function saveDraft(){
+var data = $("form").serialize();
+ 	 var Id = '<?php echo $lession_result->id; ?>';
+      $.ajax({
+        url: '/createLessionajax/'+Id,
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {
+        	$('#lesId').val(data.id);
+         
+        }
+    });
+ }
 </script>
 @endsection

@@ -4,7 +4,7 @@
 	<section class="all_quiz_list" style="padding: 40px 0px 16px">
 	
 	{!! Form::open(array('id' => 'regForm','url' => 'createLession','role' => 'form','enctype' => 'multipart/form-data','files' => true,)) !!}
-
+		<input type="hidden" name="lesId" id="lesId">
 		<!-- One "tab" for each step in the form: -->
 		<div class="tab">
 			<!-- form heading -->
@@ -22,11 +22,11 @@
 			<!-- form_no -->
 			<div class="no">
 				<label>TRAINEE'S ROLL NO.</label>
-				<input type="text" value="{{$user->enroll_no}}" disabled="">
+				<input type="text" value="{{$user->enroll_no}}"  disabled="">
 			</div>
 			<div class="no">
 				<label>LESSON NO.</label>
-				<input type="text" name="lesson_no" id="lesson_no" required="">				
+				<input type="text" name="lesson_no" id="lesson_no" class="frmsubmit" required="">				
 			</div>
 
 			<!-- detailstable -->
@@ -43,14 +43,14 @@
 						<div class="col-md-8 mt-2">
 							<div class="merge">
 								<span class="name">SCHOOL NAME</span>
-								<input oninput="this.className = ''" name="school_name">
+								<input class="frmsubmit" name="school_name">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>STD </span> 
-								<select  name="standard">
+								<select  name="standard" onchange="saveDraft();">
 									<option value="6">6</option>
 									<option value="7">7</option>
 									<option value="8">8</option>
@@ -62,7 +62,7 @@
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>SUBJECT </span>
-								<select name="subject">
+								<select name="subject" onchange="saveDraft();">
 									<option value="english">English</option>
 									<option value="gujrati">Gujrati</option>
 									<option value="s.s">S.S.</option>
@@ -77,35 +77,35 @@
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>TOPIC </span>
-								<input oninput="this.className = ''" name="topic" required="">
+								<input oninput="this.className = ''" name="topic" class="frmsubmit" required="">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>DATE </span>
-								<input id="datepicker1" name="datepicker1" autocomplete="off">
+								<input id="datepicker1" onchange="saveDraft();" name="datepicker1" autocomplete="off">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span class="period_no">PERIOD NO.</span>
-								<input oninput="this.className = ''" class="time" name="period_no" id="period_no">
+								<input oninput="this.className = ''" class="time frmsubmit" name="period_no" id="period_no">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>TIME </span>
-								<input oninput="this.className = ''" class="timepicker time " name="time" autocomplete="off">
+								<input oninput="this.className = ''" class="timepicker time frmsubmit" name="time" autocomplete="off" onchange="saveDraft();">
 							</div>
 						</div>
 
 						<div class="col-md-4 mt-2">
 							<div class="merge">
 								<span>TO </span>
-								<input oninput="this.className = ''" class="timepicker time" name="time_to" autocomplete="off">
+								<input oninput="this.className = ''" class="timepicker time frmsubmit" name="time_to" autocomplete="off" onchange="saveDraft();">
 							</div>
 						</div>
 					</div>
@@ -119,7 +119,7 @@
 						<h6>General Objectives</h6>
 					</div>
 					<div class="general_detail">
-						<textarea rows="17" name="general_objectives" maxlength="700"></textarea>
+						<textarea class="frmsubmit" rows="17" name="general_objectives" maxlength="700"></textarea>
 					</div>
 				</div>
 
@@ -128,13 +128,13 @@
 						<h6>Approach Technique</h6>
 					</div>
 					<div class="general_detail">
-						<textarea rows="11" class="tech_details" name="approach_technique" maxlength="150"></textarea>
+						<textarea rows="11" class="tech_details frmsubmit" name="approach_technique" maxlength="150"></textarea>
 					</div>
 					<div class="aids_head text-center">
 						<h6>Teaching Aids</h6>
 					</div>
 					<div class="general_detail">
-						<textarea rows="13" class="tech_details" name="teaching_aids" maxlength="140"></textarea>
+						<textarea rows="13" class="tech_details frmsubmit" name="teaching_aids" maxlength="140"></textarea>
 					</div>
 					
 				</div>
@@ -154,15 +154,15 @@
 					<tbody>
 						<tr>
 							<td>Text Book</td>
-							<td><input oninput="this.className = ''" name="text_book" maxlength="50"></td>
-							<td><textarea rows="1" cols="2" name="author_book" maxlength="10"></textarea></td>
-							<td><textarea rows="1" cols="1" name="page_textbook" id="page_textbook" maxlength="5"></textarea></td>
+							<td><input oninput="this.className = ''" name="text_book" maxlength="50" class="frmsubmit"></td>
+							<td><textarea rows="1" cols="2" name="author_book" maxlength="10" class="frmsubmit"></textarea></td>
+							<td><textarea rows="1" cols="1" name="page_textbook" id="page_textbook" maxlength="5" class="frmsubmit"></textarea></td>
 						</tr>
 						<tr>
 							<td>Refernce Book</td>
-							<td><textarea rows="4" name="refernce_books" maxlength="120"></textarea></td>
-							<td><textarea rows="4" cols="2" name="author_ref_book" maxlength="30"></textarea></td>
-							<td><textarea rows="4" cols="1" name="page_refbook" id="page_refbook" maxlength="5"></textarea></td>
+							<td><textarea rows="4" name="refernce_books" maxlength="120" class="frmsubmit"></textarea></td>
+							<td><textarea rows="4" cols="2" name="author_ref_book" maxlength="30" class="frmsubmit"></textarea></td>
+							<td><textarea rows="4" cols="1" name="page_refbook" id="page_refbook" maxlength="5" class="frmsubmit"></textarea></td>
 						</tr>
 					</tbody>
 				</table>
@@ -227,5 +227,30 @@ $("#page_textbook , #page_refbook , #lesson_no , #period_no").keypress(function 
   } 
 });
 
+ $('.frmsubmit').keyup(function(e) {
+ 	 var data = $("form").serialize();
+      $.ajax({
+        url: 'createLessionajax',
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {
+        	$('#lesId').val(data.id);
+         /*return redirect()->route('lessionPlan2',$id);*/
+        }
+         });
+ });
+function saveDraft(){
+var data = $("form").serialize();
+      $.ajax({
+        url: 'createLessionajax',
+        data: data,
+        dataType:'json',
+        type:'POST',       
+        success: function(data) {
+        	$('#lesId').val(data.id);
+        }
+         });
+ }
 </script>
 @endsection
