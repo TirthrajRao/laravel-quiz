@@ -33,6 +33,7 @@
 								<a href="{{ route('deleteTeacher',$teachers->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Delete</button></a>
 								@if($teachers->is_approved == 1)
 								<a href="{{ route('denyTeacher',$teachers->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Deny</button></a>
+								<a href="{{ route('QuizList',$teachers->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Quizzes</button></a>
 								@else
 								<a href="{{ route('approveTeacher',$teachers->id) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Approve</button></a>
 								@endif

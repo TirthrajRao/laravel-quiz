@@ -45,12 +45,19 @@ Route::get('/finishQuiz','HomeController@viewAllQuiz');
 Route::get('/userResults', 'userController@showAppearedQuiz');
 Route::get('/viewSigleResult/{quizappearid}', 'userController@singleResult');
 Route::get('/quizLeaderboard/{quiz}', 'userController@viewLeaderboard');
+Route::get('/searchStudent', 'userController@searchStudent')->name('searchStudent');
+Route::get('/getLessonPlan/{id}', 'userController@getLessonPlan')->name('getLessonPlan');
 Route::get('/userReport/{id}', 'userController@userReport')->name('userReport');
 Route::post('/addSuggestion', 'QuizController@addSuggestion');
 Route::get('/suggestion/{id}/{qid}', 'QuizController@suggestion')->name('suggestion');
 Route::post('/createUser', 'QuizController@createUser');
 Route::get('/detailPage/{id}', 'QuizController@detailPage')->name('detailPage');
 Route::get('/quizDetail/{id}', 'QuizController@quizDetail')->name('quizDetail');
+Route::get('/viewLession/{id}/{uid}', 'userController@viewLession')->name('viewLession');
+Route::get('/viewLession2/{id}/{uid}', 'userController@viewLession2')->name('viewLession2');
+Route::post('/viewLession3/{id}/{uid}', 'userController@viewLession3')->name('viewLession3');
+Route::post('/observerLession3/{id}/{uid}', 'userController@observerLession3')->name('observerLession3');
+
 
 
 /* student module route */
@@ -92,4 +99,6 @@ Route::get('/approveTeacher/{id}', 'admin\AdminController@approveTeacher')->name
 Route::get('/denyTeacher/{id}', 'admin\AdminController@denyTeacher')->name('denyTeacher');
 Route::get('/deleteTeacher/{id}', 'admin\AdminController@deleteTeacher')->name('deleteTeacher');
 Route::get('/adminLogout', 'admin\AdminController@adminLogout')->name('adminLogout');
+Route::get('/QuizList/{id}', 'admin\AdminController@QuizList')->name('QuizList');
+
 });

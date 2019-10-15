@@ -14,12 +14,15 @@
 				@endif
 			</div>
 		</div>
-		<div class="col-lg-8 offset-lg-2">
+		<div class="col-lg-10 offset-lg-1">
 					<button class="btn add_btn" data-toggle="modal" data-target="#AddStudent">Add <i class="fa fa-plus" style="color: #fff;"></i>
-					</button>
+					</button>					
 				@if (count($student) > 0)				
 				<table class="rwd-table" >
 					<h5 style="color: #fff; margin-bottom: 35px;text-align: right;font-size: 24px; font-weight: 700">Students List</h5>
+				<form action="{{ route('searchStudent') }}" method="get" id="frmsearch">
+					<input type="text" class="search_input" name="searchStudent" id="searchStudent" placeholder="Search Here..."><span onclick="frmsearch();" class="form_search"><i class="fa fa-search" aria-hidden="true"></i></span>
+				</form>
 					<thead>
 						<tr class="student_list">
 							<th class="headergreen">Name</th>
@@ -64,6 +67,7 @@
 							<td data-th="Action">
 								<a href="{{ route('deleteStudent',$students['id']) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Delete</button></a>
 								<a href="{{ route('userReport',$students['id']) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Report</button></a>
+								<a href="{{ route('getLessonPlan',$students['id']) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Lesson Plan</button></a>
 							</td>
 						</tr>
 						@endforeach
@@ -206,6 +210,12 @@ $('#changeYear').on('change', function(e){
   $(this).closest('form').submit();
 
 });
+function frmsearch(){
+	var query = $('#searchStudent').val();
+	if(query != ''){
+	$('#frmsearch').submit();
+	}
+}
 
 </script>
 @endsection

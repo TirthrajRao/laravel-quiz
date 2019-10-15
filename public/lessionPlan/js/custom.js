@@ -513,7 +513,7 @@ $(document).ready(function(){
   });
 
   $(function() {
-    $("#datepicker1").datepicker({
+    $("#datepicker1 , #datepicker").datepicker({
       changeMonth: true,
       changeYear: true,
       dateFormat: 'dd/mm/yy'

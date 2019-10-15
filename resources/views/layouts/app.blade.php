@@ -13,7 +13,7 @@
     <link rel="shortcut icon" sizes="114x114"  href="{{ asset('favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link rel="stylesheet"  href="{{ asset('css/responsive-tabs.css') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">  
 
     <script src="https://unpkg.com/popper.js@1.14.3/dist/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>

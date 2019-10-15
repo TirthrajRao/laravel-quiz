@@ -413,13 +413,12 @@ class QuizController extends Controller
      	/*$merged = $student_fyear->merge($student_syear);
      	$student = $merged->all();*/
      	//$student = array_merge($student_fyear, $student_syear);
-        $id = $request->changeYear;           
+        $id = $request->changeYear; 
         if($id != ''){
             $student = User::where('year',$id)->where('is_admin',0)->orderBy('name','asc')->orderBy('year','asc')->paginate(5)->setPath ( '' ); 
             $pagination = $student->appends ( array (
                 'changeYear' => $id
             ) );
-
 
         }else{
         $student_fyear = User::where('is_admin',0)->where('year','1')->orderBy('name','asc')->orderBy('year','asc')->get();

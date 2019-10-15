@@ -123,11 +123,13 @@ class AdminController extends Controller
     return redirect()->route('teacherList');
   }
   public function deleteTeacher(Request $request,$id){  
-    User::where('id',$id)->delete();
-    
+    User::where('id',$id)->delete();    
   }
   public function adminLogout(){  
         session_destroy();
         return redirect()->route('admin/login');
+  }
+  public function QuizList(Request $request,$id){  
+     
   }
 }
