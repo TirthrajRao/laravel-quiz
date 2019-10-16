@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.adminMaster')
 @section('content')
 @include('layouts.lessonPlanCss')
 
@@ -32,6 +32,8 @@
 					</tbody>
 				</table>
 			</div>
+			
+	
 
 			<!-- canvas -->
 			<div id="paint-app"></div>
@@ -48,18 +50,18 @@
 				<h6>OBSERVER'S REMARK</h6>
 					   <img id="html5" src="{{ URL::to('canvas') }}/<?php echo $lession_result->diagram ?>" alt="Site Logo" heigh="1px;" width="1px;" style="display: none;">
 			</div>
-			<textarea rows="15" name="observers_remark" >{{$lession_result->observers_remark}}</textarea>
+			<textarea rows="15" name="observers_remark" readonly="">{{$lession_result->observers_remark}}</textarea>
 
 			<!-- form end details -->
 			<div class="date mt-5">
-				<span>DATE <input id="datepicker" name="observers_date" autocomplete="off" value="{{$lession_result->observers_date}}"></span>
-				<span class="float-right">OBSERVER'S SIGN<input type="text" name="observers_sign" value="{{$lession_result->observers_sign}}"></span>
+				<span>DATE <input id="datepicker" name="observers_date" autocomplete="off" value="{{$lession_result->observers_date}}" disabled=""></span>
+				<span class="float-right">OBSERVER'S SIGN<input type="text" name="observers_sign" value="{{$lession_result->observers_sign}}" readonly=""></span>
 
 			</div>
 			<div>
 				<div style="float:right;">
-					<a href="{{route('viewLession2',[$lession_result->id,$uid])}}"><button type="button">Previous</button></a>
-					<button type="submit" onclick="getCanvas();">Submit</button>
+					<a href="{{route('viewLession2admin',[$lession_result->id,$uid])}}"><button type="button">Previous</button></a>
+					<!-- <button type="submit" onclick="getCanvas();">Submit</button> -->
 
 				</div>
 			</div>

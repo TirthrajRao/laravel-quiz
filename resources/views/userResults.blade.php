@@ -22,7 +22,7 @@
                                 <h5>{{ $quizTit}}</h5>
                                 <h5 style="margin: 10px 0px;">Correct: <?php echo number_format($qAppeared->marks_scored * 100 / $qAppeared->total_questions,2) ?>%</h5>
                                 <h5 style="margin: 10px 0px;">Date: {{ Carbon\Carbon::parse($qAppeared->created_at)->format('d-m-Y') }} at {{ Carbon\Carbon::parse($qAppeared->created_at)->format('G:i:s') }}</h5>
-                                <a href="/viewSigleResult/{{ $qAppeared->quizappearid }}"><button type="submit" style="border: none; background-color: #009975; red;color: #fff; cursor: pointer;border-radius: 5px;">View Details</button></a>
+                                <a href="/viewSigleResult/{{ $qAppeared->quizappearid }}"><button type="submit" class="btn btn_quiz" style="border: none; background-color: #009975; red;color: #fff; cursor: pointer;border-radius: 5px;">View Details</button></a>
                             </div>
                         </div>
                     </div>

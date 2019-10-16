@@ -1,15 +1,12 @@
-@extends('layouts.studentMaster')
+@extends('layouts.adminMaster')
 @section('content')
 <div class="page-min-height" style="background-color: #454d66">
     <div class="container">
         <section class="all_quiz_list" style="padding: 40px 0px 16px">
             <div class="container">
-                <div class="section_title" align="center" data-aos="flip-up" data-aos-duration="1000">
-                   <?php
-                    $user = Auth::user();
-                    ?>
+                <div class="section_title" align="center" data-aos="flip-up" data-aos-duration="1000">                  
                     <p id="list_p">Quizzes Appeared</p>
-                    <p>By <?php echo $user->name; ?></p>
+                    <p>By <?php echo $username->name; ?></p>
                 </div>
                 <div class="row">
                    @foreach ($quizAppeared as $index=>$qAppeared)
@@ -25,7 +22,9 @@
                                 <h5 class="headergreen">{{$quizTit}}</h5>                              
                                 <h5 style="margin: 10px 0px;">Correct: <?php echo number_format($qAppeared->marks_scored * 100 / $qAppeared->total_questions,2) ?>%</h5>
                                 <h5 style="margin: 10px 0px;">Date: {{ Carbon\Carbon::parse($qAppeared->created_at)->format('d-m-Y') }} at {{ Carbon\Carbon::parse($qAppeared->created_at)->format('G:i:s') }}</h5>
-                                <a href="/viewSigleResultStudent/{{ $qAppeared->quizappearid }}"><button type="submit" style="border: none; background-color: #009975; red;color: #fff; cursor: pointer;border-radius: 5px;">View Details</button></a>
+                                <a href="/admin/viewSigleResultadmin/{{ $qAppeared->quizappearid }}/{{$username->id}}"><button class="btn btn_quiz" type="submit" style="border: none; background-color: #009975; red;color: #fff; cursor: pointer;border-radius: 5px;">View Details</button></a>
+                                <a href="/admin/quizLeaderboardadmin/{{ $qAppeared->quizid }}/{{$username->id}}" class="btn btn_quiz " style="background-color: rgba(150,38,166,1)">Score Board</a>
+
                             </div>
                         </div>
                     </div>

@@ -106,7 +106,7 @@
                         <i class="fa fa-bars" aria-hidden="true"></i>
                     </button>
                     <div class="logo float-left">
-                        <a href="{{ url('/home') }}"><span>Quizo</span>phile</a>
+                        <a href="JavaScript:Void(0)"><span>Quizo</span>phile</a>
                     </div>
                     <div class="header_menu float-right">
                         <div class="menu_content_with_overlay">
@@ -116,11 +116,14 @@
                             <nav>
                             <?php if(isset($_SESSION['name'])) { ?>
                                  <ul class="main_menu">
-                                    <li class="{{ set_active(['login*']) }}">
+                                  <!--   <li class="{{ set_active(['login*']) }}">
                                         <a href="{{ route('admindashboard') }}">Dashboard</a>
-                                    </li>
-                                    <li class="{{ set_active(['login*']) }}">
+                                    </li> -->
+                                    <li class="{{ set_active(['admin/teacherList*']) }}">
                                         <a href="{{ route('teacherList') }}">Teacher List</a>
+                                    </li>
+                                    <li class="{{ set_active(['admin/studentListAdmin*']) }}">
+                                        <a href="{{ route('studentListAdmin') }}">Student List</a>
                                     </li>
                                      <li class="nav-item dropdown">
                                         <a class="nav-link " id="navbarDropdown1" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION['name'])) echo $_SESSION['name'];?>

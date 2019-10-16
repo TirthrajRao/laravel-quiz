@@ -7,6 +7,10 @@
 				@if (count($teacher) > 0)
 				<table class="rwd-table">
 					<h5 style="color: #fff; margin-bottom: 35px;text-align: right;font-size: 24px; font-weight: 700">Teachers List</h5>
+
+					<form action="{{ route('searchTeacher') }}" method="get" id="frmsearch">
+					<input type="text" class="search_input" name="searchTeacher" id="searchTeacher" placeholder="Enter name to search..."><span onclick="frmsearch();" class="form_search"><i class="fa fa-search" aria-hidden="true"></i></span>
+				</form>
 					<tbody>
 						<tr class="teacherlist">
 							<th class="headergreen">Name</th>
@@ -54,4 +58,12 @@
 			</div>
     </div>
 </div>
+<script>
+function frmsearch(){
+	var query = $('#searchTeacher').val();
+	if(query != ''){
+	$('#frmsearch').submit();
+	}
+}
+</script>
 @endsection

@@ -100,5 +100,17 @@ Route::get('/denyTeacher/{id}', 'admin\AdminController@denyTeacher')->name('deny
 Route::get('/deleteTeacher/{id}', 'admin\AdminController@deleteTeacher')->name('deleteTeacher');
 Route::get('/adminLogout', 'admin\AdminController@adminLogout')->name('adminLogout');
 Route::get('/QuizList/{id}', 'admin\AdminController@QuizList')->name('QuizList');
+Route::get('/viewQuiz/{id}', 'admin\AdminController@viewQuiz')->name('viewQuiz');
+Route::get('/viewSuggestion/{id}/{uid}', 'admin\AdminController@viewSuggestion')->name('viewSuggestion');
+Route::get('/searchTeacher', 'admin\AdminController@searchTeacher')->name('searchTeacher');
+Route::get('/studentListAdmin', 'admin\AdminController@studentListAdmin')->name('studentListAdmin');
+Route::get('/searchStudentadmin', 'admin\AdminController@searchStudentadmin')->name('searchStudentadmin');
+Route::get('/getLessonPlanAdmin/{id}', 'admin\AdminController@getLessonPlanAdmin')->name('getLessonPlanAdmin');
+Route::get('/viewLessionadmin/{id}/{uid}', 'admin\AdminController@viewLessionadmin')->name('viewLessionadmin');
+Route::get('/viewLession2admin/{id}/{uid}', 'admin\AdminController@viewLession2admin')->name('viewLession2admin');
+Route::post('/viewLession3admin/{id}/{uid}', 'admin\AdminController@viewLession3admin')->name('viewLession3admin');
+Route::get('/userReportadmin/{id}', 'admin\AdminController@userReportadmin')->name('userReportadmin');
+Route::get('/viewSigleResultadmin/{quizappearid}/{uid}', 'admin\AdminController@singleResultadmin');
+Route::get('/quizLeaderboardadmin/{quiz}/{uid}', 'admin\AdminController@viewLeaderboardadmin');
 
 });
