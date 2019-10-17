@@ -131,21 +131,21 @@ controls.tool = function(cx) {
 
   /* canvas on mobile view start */
   // Set up touch events for mobile, etc
-  cx.canvas.addEventListener("touchstart", function (e) {
-        mousePos = getTouchPos(cx.canvas, e);
-  var touch = e.touches[0];
+  cx.canvas.addEventListener("touchstart", function (event) {
+        mousePos = getTouchPos(cx.canvas, event);
+  var touch = event.touches[0];
   var mouseEvent = new MouseEvent("mousedown", {
     clientX: touch.clientX,
     clientY: touch.clientY
   });
   cx.canvas.dispatchEvent(mouseEvent);
 }, false);
-cx.canvas.addEventListener("touchend", function (e) {
+cx.canvas.addEventListener("touchend", function (event) {
   var mouseEvent = new MouseEvent("mouseup", {});
   cx.canvas.dispatchEvent(mouseEvent);
 }, false);
-cx.canvas.addEventListener("touchmove", function (e) {
-  var touch = e.touches[0];
+cx.canvas.addEventListener("touchmove", function (event) {
+  var touch = event.touches[0];
   var mouseEvent = new MouseEvent("mousemove", {
     clientX: touch.clientX,
     clientY: touch.clientY
@@ -154,19 +154,25 @@ cx.canvas.addEventListener("touchmove", function (e) {
 }, false);
 
 // Prevent scrolling when touching the canvas
-document.body.addEventListener("touchstart", function (e) {
-  if (e.target == cx.canvas) {
-    e.preventDefault();
+cx.canvas.addEventListener("touchstart", function (event) {
+  if (event.target == cx.canvas) {
+    event.preventDefault();
+    event.stopPropagation();
+    swiping = true;
   }
 }, false);
-document.body.addEventListener("touchend", function (e) {
-  if (e.target == cx.canvas) {
-    e.preventDefault();
+cx.canvas.addEventListener("touchend", function (event) {
+  if (event.target == cx.canvas) {
+    event.preventDefault();
+    event.stopPropagation();
+    swiping = true;
   }
 }, false);
-document.body.addEventListener("touchmove", function (e) {
-  if (e.target == cx.canvas) {
-    e.preventDefault();
+cx.canvas.addEventListener("touchmove", function (event) {
+  if (event.target == cx.canvas) {
+    event.preventDefault();
+    event.stopPropagation();
+    swiping = true;
   }
 }, false);
 

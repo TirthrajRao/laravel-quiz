@@ -80,8 +80,8 @@
   		};
 		//var canvas = elt('canvas', {});
 		var cx = canvas.getContext('2d');
-		canvas.width  = window.innerWidth;;
-		canvas.height = window.innerHeight;
+		canvas.width  = document.body.clientWidth;
+		canvas.height = document.body.clientHeight;
 		canvas.id = 'canId';
 		var toolbar = elt('div', {class: 'toolbar'});
 		for (var name in controls)
