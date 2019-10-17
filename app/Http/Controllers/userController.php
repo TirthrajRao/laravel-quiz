@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Auth;
 use App\User;
 use App\Question;
@@ -15,7 +14,6 @@ use Debugbar;
 use Redirect;
 use Charts;
 use App\LessionPlan;
-
 
 class userController extends Controller
 {
