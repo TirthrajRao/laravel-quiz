@@ -106,7 +106,7 @@ class userController extends Controller
         return view('studentList',['student'=>$student]); 
 	}
 	public function getLessonPlan(Request $request,$id){
-		$lesson_complete =  LessionPlan::where('user_id',$id)->where('draft_page',3)->orderBy('created_at','Desc')->paginate(5); 
+		$lesson_complete =  LessionPlan::where('user_id',$id)->where('draft_page',3)->paginate(5); 
 		return view('lessionList',['lesson_complete' => $lesson_complete,'id' => $id]);
 
 	}

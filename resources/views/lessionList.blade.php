@@ -27,7 +27,12 @@
 							</td>	
 							<td data-th="Action">
 								
+								
+								@if($lessions->observers_remark != '')
+								<a href="{{ route('viewLession',[$lessions->id,$id]) }}"><button style="border: none; background-color: rgba(150,38,166,1);color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">Viewed</button></a>
+								@else
 								<a href="{{ route('viewLession',[$lessions->id,$id]) }}"><button style="border: none; background-color: #009975;color: #fff; cursor: pointer;border-radius: 5px;margin: 2px;">View</button></a>
+								@endif
 								
 							</td>
 						</tr>	
