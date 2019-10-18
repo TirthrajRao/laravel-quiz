@@ -168,14 +168,21 @@ cx.canvas.addEventListener("touchend", function (event) {
     swiping = true;
   }
 }, false);
-cx.canvas.addEventListener("touchmove", function (event) {
+/*cx.canvas.addEventListener("touchmove", function (event) {
   if (event.target == cx.canvas) {
     event.preventDefault();
     event.stopPropagation();
     swiping = true;
   }
+}, false);*/
+cx.canvas.addEventListener("touchmove", function (e) {
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  });
+  cx.canvas.dispatchEvent(mouseEvent);
 }, false);
-
 // Get the position of a touch relative to the canvas
 function getTouchPos(canvasDom, touchEvent) {
   var rect = canvasDom.getBoundingClientRect();

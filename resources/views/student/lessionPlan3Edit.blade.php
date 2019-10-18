@@ -83,6 +83,7 @@
 		canvas.width  = document.body.clientWidth;
 		canvas.height = document.body.clientHeight;
 		canvas.id = 'canId';
+		 
 		var toolbar = elt('div', {class: 'toolbar'});
 		for (var name in controls)
 			toolbar.appendChild(controls[name](cx));
@@ -100,9 +101,9 @@
   setInterval(function() {
     _DrawImage();
   }, 1000/30);
-}
-
-	function getCanvas(){
+}  
+    
+ function getCanvas(){
 		var canvasGetValue = document.getElementById("canId");
 		  currentX = canvasGetValue.width/2;
   		  currentY = canvasGetValue.height/2;
