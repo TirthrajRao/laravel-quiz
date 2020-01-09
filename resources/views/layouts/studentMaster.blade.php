@@ -117,6 +117,11 @@
             }
         });
     });
+    
+    /* confirm popup js  */
+     function geek() { 
+        $('#AddQueModal').modal('show');
+    } 
 </script>
 @yield('custom-scripts')
 
